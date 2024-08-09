@@ -1,0 +1,2411 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    .bt {
+        height: 40px;
+        background: #EFEFEF;
+        padding-block: 1px;
+        padding-inline: 12px;
+        border-radius: 5px;
+        font-size: 12pt;
+        stroke: black;
+        /* align-self: center; */
+    }
+
+    .bt:hover {
+        background: #dfdfdf;
+    }
+
+    .bt:active {
+        background: #d7d7d7;
+    }
+
+    #tooltip {
+        background: white;
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 5px;
+        font-family: Arial, Helvetica, sans-serif;
+        fill: black;
+    }
+
+    .rectangle {
+        fill: #FFFFFF;
+        stroke: black;
+        stroke-width: 2;
+    }
+
+    .dashed {
+        stroke-dasharray: 5, 5;
+    }
+
+    .line {
+        fill: none;
+        stroke: black;
+        stroke-width: 2;
+    }
+
+    .text {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12pt;
+        fill: black;
+    }
+
+    svg .text {
+        -webkit-user-select: none;
+        /* Safari */
+        -ms-user-select: none;
+        /* IE 10 and IE 11 */
+        user-select: none;
+    }
+
+    .halo {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12pt;
+        fill: #FFFFFF;
+        stroke: #FFFFFF;
+        stroke-width: 5;
+    }
+
+    g {
+        white-space: normal;
+    }
+
+    .container:hover .rectangle {
+        fill: #ec008c;
+        stroke-width: 5;
+    }
+
+    .container:hover .text {
+        font-weight: bold;
+    }
+
+    .connected {
+        stroke-width: 5;
+        font-weight: bold;
+    }
+
+    .connected .rectangle {
+        stroke-width: 5;
+    }
+
+    .connected .label {
+        font-size: 16pt;
+    }
+
+    .title {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 18pt;
+        font-weight: bold;
+        text-decoration: underline;
+        fill: black;
+        line-height: 1.2;
+        margin: 20px 0 0;
+    }
+
+    .subtitle {
+        display: block;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14pt;
+        fill: black;
+        margin-top: 0px;
+        margin-bottom: 8px;
+    }
+
+    .subtitle--no-margin {
+        margin: 0;
+    }
+
+    .body-container {
+        font-family: Arial, Helvetica, sans-serif;
+        align-items: flex-start;
+        display: flex;
+    }
+
+    body {
+        padding: 0;
+        margin: 0;
+    }
+
+    .body-container .sidebar {
+        line-height: 1.4;
+        background-color: #EFEFEF;
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+        padding-inline: 2%;
+        width: 15vw;
+        min-width: min-content;
+        height: 100vh;
+        align-items: flex-start;
+        box-shadow: 2px 0 2px 0 #dfdfdf;
+        z-index: 1;
+    }
+
+    .body-container #svgImage {
+        width: 85vw;
+        height: 100vh;
+    }
+
+    .legend {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        line-height: 1.2;
+        margin-top: .3em;
+        margin-bottom: .3em;
+    }
+
+    .legend-item svg {
+        margin-right: 5px;
+        min-width: max-content;
+    }
+
+    .color-by-company-type .company-type--lp {
+        fill: #66c2a5;
+    }
+
+    .color-by-company-type .company-type--gp {
+        fill: #fc8d62;
+    }
+
+    .color-by-company-type .company-type--corp {
+        fill: #8da0cb;
+    }
+
+    .color-by-company-type .company-type--llc {
+        fill: #e78ac3;
+    }
+
+    .color-by-company-type .company-type--lc {
+        fill: #a6d854;
+    }
+
+    .color-by-company-type .company-type--trust {
+        fill: #ffd92f;
+    }
+
+    .color-by-poi .poi--delaware {
+        fill: #66c2a5;
+    }
+
+    .color-by-poi .poi--ny {
+        fill: #fc8d62;
+    }
+
+    .color-by-poi .poi--bvi {
+        fill: #8da0cb;
+    }
+
+    .color-by-poi .poi--jersey {
+        fill: #e78ac3;
+    }
+
+    .color-by-poi .poi--wy {
+        fill: #a6d854;
+    }
+
+    .color-by-poi .poi--wyny {
+        fill: #ffd92f;
+    }
+
+    .color-by-corporate-address .corporate-address--stamford {
+        fill: #66c2a5;
+    }
+
+    .color-by-corporate-address .corporate-address--coventry {
+        fill: #fc8d62;
+    }
+
+    .color-by-corporate-address .corporate-address--oklahoma {
+        fill: #8da0cb;
+    }
+
+    .color-by-corporate-address .corporate-address--zurich {
+        fill: #e78ac3;
+    }
+
+    .color-by-corporate-address .corporate-address--unknown {
+        fill: #FFFFFF;
+    }
+
+    .color-by-status .status--debtor {
+        fill: #66c2a5;
+    }
+
+    .color-by-status .status--nondebtor {
+        fill: #fc8d62;
+    }
+
+    #company-type-legend {
+        display: none;
+    }
+
+    .color-by-company-type #company-type-legend {
+        display: block;
+    }
+
+    #poi-legend {
+        display: none;
+    }
+
+    .color-by-poi #poi-legend {
+        display: block;
+    }
+
+    #corporate-address-legend {
+        display: none;
+    }
+
+    .color-by-corporate-address #corporate-address-legend {
+        display: block;
+    }
+
+    #status-legend {
+        display: none;
+    }
+
+    .color-by-status #status-legend {
+        display: block;
+    }
+
+    input[type="checkbox"] {
+        height: 1.15em;
+        width: 1.15em;
+    }
+
+    select {
+        font-size: 12pt;
+        font-family: inherit;
+        padding: 4px;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 2px solid black;
+        width: 50%;
+    }
+
+    .close {
+        color: gray;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover {
+        color: black;
+    }
+
+    #helpBt {
+        position: absolute;
+        display: inline-block;
+        bottom: 0;
+        margin-bottom: 20px;
+    }
+
+    .zoom-icon circle {
+        fill: none;
+        stroke: black;
+        stroke-width: 2px;
+    }
+
+    .zoom-icon line {
+        stroke: black;
+        stroke-width: 4px;
+    }
+
+    .reset-icon path {
+        fill: none;
+        stroke: black;
+        stroke-width: 2px;
+    }
+
+    .reset-icon polygon {
+        fill: black;
+        stroke: black;
+        stroke-width: 2px;
+    }
+
+    .button-collection {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 1em;
+    }
+
+    .button-collection svg {
+        position: relative;
+        height: 100%;
+        width: 100%;
+    }
+
+    .btGrid {
+        background: #EFEFEF;
+        stroke: black;
+        border-radius: 5px;
+        height: 40px;
+        width: 40px;
+    }
+
+    .btGrid:hover {
+        background: #dfdfdf;
+    }
+</style>
+
+<body>
+    <div class="body-container">
+        <div class="sidebar">
+            <div>
+                <p class="title">Financial Structures & Family Ties:</p>
+                <p class="subtitle">Disentangling Purdue Pharma's Corporate Ownership Structure and the Sackler
+                    Family Wealth</p>
+            </div>
+            <div class="button-collection">
+                <button id="zoomInBt" class="btGrid" type="button" title="Zoom In" onclick="zoomInClick();">
+                    <svg id="zoomInIcon" class="zoom-icon" viewBox="0 0 25 25" preserveAspectRatio="xMidYMid meet">
+                        <circle cx="10" cy="10" r="8" />
+                        <line x1="5" y1="10" x2="15" y2="10" style="stroke-width: 2px" />
+                        <line x1="10" y1="5" x2="10" y2="15" style="stroke-width: 2px" />
+                        <line x1="17" y1="17" x2="22" y2="22" style="stroke-linecap:round;" />
+                        <line x1="16" y1="16" x2="20" y2="20" />
+                    </svg>
+                </button>
+                <button id="zoomOutBt" class="btGrid" type="button" title="Zoom Out" onclick="zoomOutClick();">
+                    <svg id="zoomOutIcon" class="zoom-icon" viewBox="0 0 25 25" preserveAspectRatio="xMidYMid meet">
+                        <g dominant-baseline="middle">
+                            <circle cx="10" cy="10" r="8" />
+                            <line x1="5" y1="10" x2="15" y2="10" style="stroke-width: 2px" />
+                            <line x1="17" y1="17" x2="22" y2="22" style="stroke-linecap:round;" />
+                            <line x1="16" y1="16" x2="20" y2="20" />
+                        </g>
+                    </svg>
+                </button>
+                <button id="resetBt" class="btGrid" type="button" title="Reset Zoom"
+                    onclick="resetSVG('0 0 4750 2800');">
+                    <svg id="resetIcon" class="reset-icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+                        <polygon points="2,12 5,9 8,12" />
+                        <polygon points="22,12 19,15 16,12" />
+                        <path d="M 5,12  A 8,8 0 0,0 12,20" />
+                        <path d="M 19,12 A 8,8 0 0,0 12,4" />
+                    </svg>
+                </button>
+            </div>
+            <label for="tooltipOff" class="subtitle subtitle--no-margin">
+                <input type="checkbox" id="tooltipOff" />
+                Hide Tooltip
+            </label>
+            <div>
+                <label for="select-variable" class="subtitle">Color by variable:</label>
+                <select name="select-variable" id="select-variable" onchange="changeColor()">
+                    <option value="none">None</option>
+                    <option value="type">Company type</option>
+                    <option value="poi">Place of incorporation</option>
+                    <option value="address">Corporate address</option>
+                    <option value="status">Bankruptcy status</option>
+                </select>
+            </div>
+            <div id="company-type-legend" class="legend">
+                <p class="subtitle">Legend</p>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#66c2a5" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">Limited Partnership</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#fc8d62" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;;">&ndash;</span>
+                    <span class="text">General Partnership</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#8da0cb" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">Corporation</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#e78ac3" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">Limited Liability Company</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#a6d854" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">Limited Company</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#ffd92f" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">Trust</span>
+                </div>
+            </div>
+
+            <div id="poi-legend" class="legend">
+                <p class="subtitle">Legend</p>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#66c2a5" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">Delaware</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#fc8d62" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">New York</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#8da0cb" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">British Virgin Islands</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#e78ac3" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">Jersey (Channel Islands)</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#a6d854" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">Wyoming</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#ffd92f" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">Wyoming; New York</span>
+                </div>
+            </div>
+
+            <div id="corporate-address-legend" class="legend">
+                <p class="subtitle">Legend</p>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#66c2a5" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">One Stamford Forum, Stamford, CT, USA</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#fc8d62" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">498 Washington St, Coventry, RI, USA</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#8da0cb" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">North Bay Associates, Oklahoma City, USA</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#e78ac3" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">Zurich, CH</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#FFFFFF" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">Unknown</span>
+                </div>
+            </div>
+
+            <div id="status-legend" class="legend">
+                <p class="subtitle">Legend</p>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#66c2a5" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">Debtor</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#fc8d62" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">Non-debtor</span>
+                </div>
+            </div>
+            <button id="helpBt" class="bt" onclick="openHelp();">More info</button>
+            <div id="help" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeHelpBtn();">&times;</span>
+                    <p class="title">How to use this visualization</p>
+                    <p class="text">This is an interactive diagram of the Purdue Pharma LP ownership structure at the
+                        time of the company's bankruptcy filing in September 2019. Rectangles represent different
+                        corporate and financial entities that either are subsidiaries or have some ownership stake in
+                        Purdue Pharma LP. Lines connect related entities with arrows indicating the direction of
+                        ownership. Lines are labeled with the percentage of ownership interests held by the parent
+                        entity. Entities with 0% ownership have no equity interests but receive a service fee for acting
+                        as General Partner. Dashed lines represent the Sackler family members over the age of eighteen
+                        who are beneficiaries of trusts that have ownership over corporate entities. It is important to
+                        note that this information is incomplete as Purdue is a privately owned company and only the
+                        entities filing for bankruptcy are obligated to publicly disclose their finances.
+                    </p>
+                    <p class="text"> Zoom in and out of the diagram by scrolling or by clicking the magnifying glass
+                        buttons in the sidebar. Drag or use the arrow or WASD keys to pan. Return to the orignal zoom
+                        and extent using the refresh button next to the zoom buttons in the sidebar. Hover over entities
+                        with a mouse to see their immediate parent or subsidiary companies in bold. The tooltip (which
+                        can be turned off by toggling the radio button in the sidebar) shows information such as the
+                        company type, the place of incorporation, corporate address, nature of business, status in the
+                        Purdue bankruptcy filing, governing law, trustees, as well as assets and liabilities. Color the
+                        entities by selecting among company type, place of incorporation, corporate address, and
+                        bankruptcy status in the dropdown menu.
+                    </p>
+                    <p class="" text>
+                        For the best experience, we recommend exploring this visualization on a laptop or desktop
+                        computer rather than on a mobile device. For more information, please read the accompanying text
+                        <span style="color:red;">LINK TO FINANCE & SPACE TEXT</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div id="tooltip" display="none" style="position: absolute; display: none;"></div>
+        <svg id="svgImage" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0"
+            viewBox="0 0 4750 2800" width="100%" xml:space="preserve" onwheel="zoom(evt);" onmousedown="startPan(evt);"
+            onmousemove="dragPan(evt);" onmouseup="endPan(evt);">
+
+            <defs>
+                <marker id="triangle" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="strokeWidth" markerWidth="8"
+                    markerHeight="6" orient="auto">
+                    <path d="M 0 0 L 10 5 L 0 10 z" />
+                </marker>
+            </defs>
+
+            <g id="ophir" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="100" y="1900"
+                    class="rectangle company-type--corp poi--bvi corporate-address--stamford status--debtor" width="200"
+                    height="100" rx="10" ry="10" />
+                <text class="text" x="200" y="1950" dominant-baseline="middle" text-anchor="middle">Ophir Green
+                    Corp</text>
+            </g>
+            <g id="seven_seas" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="400" y="1900"
+                    class="rectangle company-type--corp poi--bvi corporate-address--stamford status--debtor" width="200"
+                    height="100" rx="10" ry="10" />
+                <text class="text" x="500" y="1950" dominant-baseline="middle" text-anchor="middle">Seven Seas Hill
+                    Corp</text>
+            </g>
+            <g id="nyatt_cove" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="700" y="1900"
+                    class="rectangle company-type--corp poi--delaware corporate-address--stamford status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(800,1940)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Nyatt Cove</tspan>
+                        <tspan x="0" dy="1.2em">Lifescience Inc</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="purdue_puerto_rico" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="250" y="2100"
+                    class="rectangle company-type--gp poi--delaware corporate-address--stamford status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(350,2140)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Purdue Pharma</tspan>
+                        <tspan x="0" dy="1.2em">of Puerto Rico</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="purdue_neuroscience" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="850" y="2100"
+                    class="rectangle company-type--gp poi--delaware corporate-address--stamford status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(950,2140)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Purdue Neuroscience</tspan>
+                        <tspan x="0" dy="1.2em">Company</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="purdue_pharma_lp" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="550" y="1650"
+                    class="rectangle company-type--lp poi--delaware corporate-address--stamford status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="650" y="1700" dominant-baseline="middle" text-anchor="middle">Purdue Pharma
+                    LP</text>
+            </g>
+            <g id="adlon" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="1000" y="1900"
+                    class="rectangle company-type--lp poi--delaware corporate-address--stamford status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="1100" y="1950" dominant-baseline="middle" text-anchor="middle">Adlon Therapeutics
+                    LP</text>
+            </g>
+            <g id="purdue_transdermal" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="1300" y="1900"
+                    class="rectangle company-type--lp poi--delaware corporate-address--stamford status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(1400,1940)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Purdue Transdermal</tspan>
+                        <tspan x="0" dy="1.2em">Technologies LP</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="ibrium" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="1600" y="1900"
+                    class="rectangle company-type--lp poi--delaware corporate-address--stamford status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="1700" y="1950" dominant-baseline="middle" text-anchor="middle">Ibrium Therapeutics
+                    LP</text>
+            </g>
+            <g id="purdue_pharma_products" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="1900" y="1900"
+                    class="rectangle company-type--lp poi--delaware corporate-address--stamford status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(2000,1940)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Purdue Pharmaceutical</tspan>
+                        <tspan x="0" dy="1.2em">Products LP</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="greenfield_bioventures" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="2200" y="1900"
+                    class="rectangle company-type--lp poi--delaware corporate-address--stamford status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(2300,1940)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Greenfield</tspan>
+                        <tspan x="0" dy="1.2em">BioVentures LP</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="purdue_pharma_manufacturing" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="2500" y="1900"
+                    class="rectangle company-type--lp poi--delaware corporate-address--stamford status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(2600,1940)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Purdue Pharma</tspan>
+                        <tspan x="0" dy="1.2em">Manufacturing LP</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="purdue_pharmaceuticals_lp" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();"">
+                <rect x=" 2800" y="1900"
+                class="rectangle company-type--lp poi--delaware corporate-address--stamford status--debtor" width="200"
+                height="100" rx="10" ry="10" />
+            <g transform="translate(2900,1940)" dominant-baseline="middle" text-anchor="middle">
+                <text class="text" x="0" y="0">
+                    <tspan x="0" dy="0">Purdue</tspan>
+                    <tspan x="0" dy="1.2em">Pharmaceuticals LP</tspan>
+                </text>
+            </g>
+            </g>
+            <g id="avrio_health" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="3100" y="1900"
+                    class="rectangle company-type--lp poi--delaware corporate-address--stamford status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="3200" y="1950" dominant-baseline="middle" text-anchor="middle">Avrio Health
+                    LP</text>
+            </g>
+            <g id="rhodes_associates" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="3400" y="1900"
+                    class="rectangle company-type--lp poi--delaware corporate-address--coventry status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="3500" y="1950" dominant-baseline="middle" text-anchor="middle">Rhodes Associates
+                    LP</text>
+            </g>
+            <g id="rhodes_technologies" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="3700" y="1900"
+                    class="rectangle company-type--gp poi--delaware corporate-address--coventry status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="3800" y="1950" dominant-baseline="middle" text-anchor="middle">Rhodes
+                    Technologies</text>
+            </g>
+            <g id="rhodes_pharmaceuticals" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="3700" y="1750"
+                    class="rectangle company-type--lp poi--delaware corporate-address--coventry status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(3800,1790)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Rhodes</tspan>
+                        <tspan x="0" dy="1.2em">Pharmaceuticals LP</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="udf" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="4000" y="1815"
+                    class="rectangle company-type--lp poi--delaware corporate-address--coventry status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="4100" y="1865" dominant-baseline="middle" text-anchor="middle">UDF LP</text>
+            </g>
+            <g id="paul_land" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="3250" y="2100"
+                    class="rectangle company-type--corp poi--ny corporate-address--coventry status--debtor" width="200"
+                    height="100" rx="10" ry="10" />
+                <text class="text" x="3350" y="2150" dominant-baseline="middle" text-anchor="middle">Paul Land LP</text>
+            </g>
+            <g id="button_land" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="3550" y="2100"
+                    class="rectangle company-type--lp poi--delaware corporate-address--coventry status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="3650" y="2150" dominant-baseline="middle" text-anchor="middle">Button Land
+                    LP</text>
+            </g>
+            <g id="quidnick_land" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="3850" y="2100"
+                    class="rectangle company-type--lp poi--delaware corporate-address--coventry status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="3950" y="2150" dominant-baseline="middle" text-anchor="middle">Quidnick Land
+                    LP</text>
+            </g>
+            <g id="svc_pharma_inc" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="4150" y="2100"
+                    class="rectangle company-type--corp poi--delaware corporate-address--coventry status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="4250" y="2150" dominant-baseline="middle" text-anchor="middle">SVC Pharma
+                    Inc</text>
+            </g>
+            <g id="svc_pharma_lp" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="4450" y="1975"
+                    class="rectangle company-type--lp poi--delaware corporate-address--coventry status--debtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="4550" y="2025" dominant-baseline="middle" text-anchor="middle">SVC Pharma
+                    LP</text>
+            </g>
+            <g id="purdue_pharma_inc" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="2200" y="1650"
+                    class="rectangle company-type--corp poi--ny corporate-address--stamford status--debtor" width="200"
+                    height="100" rx="10" ry="10" />
+                <text class="text" x="2300" y="1700" dominant-baseline="middle" text-anchor="middle">Purdue Pharma
+                    Inc</text>
+            </g>
+            <g id="purdue_research" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="550" y="1450"
+                    class="rectangle company-type--lp poi--delaware corporate-address--stamford status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(650,1490)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Purdue Research</tspan>
+                        <tspan x="0" dy="1.2em">Associates LP</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="plp_associates_lp" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="250" y="1250"
+                    class="rectangle company-type--lp poi--delaware corporate-address--stamford status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(350,1290)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">PLP Associates</tspan>
+                        <tspan x="0" dy="1.2em">Holdings LP</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="plp_associates_inc" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="550" y="1250"
+                    class="rectangle company-type--corp poi--ny corporate-address--stamford status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(650,1290)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">PLP Associates</tspan>
+                        <tspan x="0" dy="1.2em">Holdings Inc</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="br_holdings_inc" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="850" y="1250"
+                    class="rectangle company-type--corp poi--ny corporate-address--stamford status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(950,1290)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">BR Holdings</tspan>
+                        <tspan x="0" dy="1.2em">Associates Inc</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="br_holdings_lp" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="550" y="1050"
+                    class="rectangle company-type--lp poi--delaware corporate-address--stamford status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(650,1090)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">BR Holdings</tspan>
+                        <tspan x="0" dy="1.2em">Associates LP</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="beacon" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="300" y="850"
+                    class="rectangle company-type--gp poi--delaware corporate-address--zurich status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="400" y="900" dominant-baseline="middle" text-anchor="middle">Beacon Company</text>
+            </g>
+            <g id="rosebay_medical_lp" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="800" y="850"
+                    class="rectangle company-type--lp poi--delaware corporate-address--oklahoma status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(900,890)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Rosebay</tspan>
+                        <tspan x="0" dy="1.2em">Medical LP</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="stanhope_gate" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="150" y="650"
+                    class="rectangle company-type--corp poi--bvi corporate-address--unknown status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="250" y="700" dominant-baseline="middle" text-anchor="middle">Stanhope Gate
+                    Corp</text>
+            </g>
+            <g id="heatheridge" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="300" y="450"
+                    class="rectangle company-type--lc poi--jersey corporate-address--unknown status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(400,490)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Heatheridge Trust</tspan>
+                        <tspan x="0" dy="1.2em">Company Limited</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="rosebay_medical_inc" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="650" y="650"
+                    class="rectangle company-type--corp poi--delaware corporate-address--unknown status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(750,690)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Rosebay</tspan>
+                        <tspan x="0" dy="1.2em">Medical Inc</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="trust_1974" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="950" y="650"
+                    class="rectangle company-type--trust poi--delaware corporate-address--unknown status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(1050,690)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Trust U/A 11/5/74</tspan>
+                        <tspan x="0" dy="1.2em">fbo Beverly Sackler</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="banela" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="1900" y="850"
+                    class="rectangle company-type--corp poi--bvi corporate-address--unknown status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="2000" y="900" dominant-baseline="middle" text-anchor="middle">Banela
+                    Corporation</text>
+            </g>
+            <g id="linarite_holdings" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="2200" y="850"
+                    class="rectangle company-type--llc poi--delaware corporate-address--unknown status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="2300" y="900" dominant-baseline="middle" text-anchor="middle">Linarite Holdings
+                    LLC</text>
+            </g>
+            <g id="perthlite_holdings" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="2500" y="850"
+                    class="rectangle company-type--llc poi--delaware corporate-address--unknown status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="2600" y="900" dominant-baseline="middle" text-anchor="middle">Perthlite Holdings
+                    LLC</text>
+            </g>
+            <g id="millborne" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="1900" y="650"
+                    class="rectangle company-type--lc poi--jersey corporate-address--unknown status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(2000,690)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Millborne Trust</tspan>
+                        <tspan x="0" dy="1.2em">Company Limited</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="data_llc" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="2200" y="650"
+                    class="rectangle company-type--llc poi--wyny corporate-address--unknown status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="2300" y="700" dominant-baseline="middle" text-anchor="middle">Data LLC</text>
+            </g>
+            <g id="cornice_fiduciary" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="2500" y="650"
+                    class="rectangle company-type--llc poi--delaware corporate-address--unknown status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <g transform="translate(2600,690)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Cornice Fiduciary</tspan>
+                        <tspan x="0" dy="1.2em">Management LLC</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="data_trust" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="2050" y="400"
+                    class="rectangle company-type--trust poi--wy corporate-address--unknown status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="2150" y="450" dominant-baseline="middle" text-anchor="middle">Data Trust</text>
+            </g>
+            <g id="cornice_trust" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="2650" y="450"
+                    class="rectangle company-type--trust poi--wy corporate-address--unknown status--nondebtor"
+                    width="200" height="100" rx="10" ry="10" />
+                <text class="text" x="2750" y="500" dominant-baseline="middle" text-anchor="middle">Cornice Trust</text>
+            </g>
+            <g id="beacon_trust" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="200" y="225"
+                    class="rectangle dashed company-type--trust poi--jersey corporate-address--unknown status--nondebtor"
+                    width="400" height="125" rx="10" ry="10"></rect>
+                <g transform="translate(400,250)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Beacon Trust</tspan>
+                        <tspan x="0" dy="1.2em">Theresa Sackler, Ilene Sackler-Lefcourt,</tspan>
+                        <tspan x="0" dy="1.2em">Jeffrey M Lefcourt, Karen Lefcourt, Kathe Sackler,</tspan>
+                        <tspan x="0" dy="1.2em">Mortimer DA Sackler, Marissa T Sackler,</tspan>
+                        <tspan x="0" dy="1.2em">Sophia Dalrymple, & Michael D Sackler</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="hercules_trust" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="1550" y="225"
+                    class="rectangle dashed company-type--trust poi--jersey corporate-address--unknown status--nondebtor"
+                    width="400" height="125" rx="10" ry="10"></rect>
+                <g transform="translate(1750,250)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">Hercules Trust</tspan>
+                        <tspan x="0" dy="1.2em">Theresa Sackler, Ilene Sackler-Lefcourt,</tspan>
+                        <tspan x="0" dy="1.2em">Jeffrey M Lefcourt, Karen Lefcourt, Kathe Sackler,</tspan>
+                        <tspan x="0" dy="1.2em">Mortimer DA Sackler, Marissa T Sackler,</tspan>
+                        <tspan x="0" dy="1.2em">Sophia Dalrymple, & Michael D Sackler</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="rrs_trust_89_1b" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="2330" y="270"
+                    class="rectangle dashed company-type--trust poi--wyny corporate-address--unknown status--nondebtor"
+                    width="300" height="100" rx="10" ry="10"></rect>
+                <g transform="translate(2480,300)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">RRS Trust 1B dtd 12/23/89</tspan>
+                        <tspan x="0" dy="1.2em">David A Sackler, Marianna Sacker,</tspan>
+                        <tspan x="0" dy="1.2em">& Rebecca Sackler</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="rrs_trust_89_1a" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="2330" y="70"
+                    class="rectangle dashed company-type--trust poi--wyny corporate-address--unknown status--nondebtor"
+                    width="300" height="100" rx="10" ry="10"></rect>
+                <g transform="translate(2480,100)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">RRS Trust 1A dtd 12/23/89</tspan>
+                        <tspan x="0" dy="1.2em">David A Sackler, Marianna Sacker,</tspan>
+                        <tspan x="0" dy="1.2em">& Rebecca Sackler</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="rrs_trust_89_2b" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="2950" y="400"
+                    class="rectangle dashed company-type--trust poi--wyny corporate-address--unknown status--nondebtor"
+                    width="300" height="100" rx="10" ry="10"></rect>
+                <g transform="translate(3100,430)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">RRS Trust 2B dtd 12/23/89</tspan>
+                        <tspan x="0" dy="1.2em">Madeleine Sackler, Clare Sacker,</tspan>
+                        <tspan x="0" dy="1.2em">& Miles Sackler</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="rrs_trust_89_2a" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
+                onmouseleave="hideTooltip(); hideConnections();">
+                <rect x="2950" y="200"
+                    class="rectangle dashed company-type--trust poi--wyny corporate-address--unknown status--nondebtor"
+                    width="300" height="100" rx="10" ry="10"></rect>
+                <g transform="translate(3100,230)" dominant-baseline="middle" text-anchor="middle">
+                    <text class="text" x="0" y="0">
+                        <tspan x="0" dy="0">RRS Trust 2A dtd 12/23/89</tspan>
+                        <tspan x="0" dy="1.2em">Madeleine Sackler, Clare Sacker,</tspan>
+                        <tspan x="0" dy="1.2em">& Miles Sackler</tspan>
+                    </text>
+                </g>
+            </g>
+
+            <!-- Lines -->
+            <line id="l1" class="line" x1="200" y1="2000" x2="200" y2="2050" />
+            <line id="l2" class="line" x1="200" y1="2050" x2="350" y2="2050" />
+            <line id="l3" class="line" x1="350" y1="2050" x2="350" y2="2100" marker-end="url(#triangle)" />
+            <line id="l4" class="line" x1="500" y1="2000" x2="500" y2="2050" />
+            <line id="l5" class="line" x1="500" y1="2050" x2="350" y2="2050" />
+            <line id="l6" class="line" x1="600" y1="1750" x2="600" y2="1850" />
+            <line id="l7" class="line" x1="600" y1="1850" x2="500" y2="1850" />
+            <line id="l8" class="line" x1="500" y1="1850" x2="200" y2="1850" />
+            <line id="l9" class="line" x1="200" y1="1850" x2="200" y2="1900" marker-end="url(#triangle)" />
+            <line id="l10" class="line" x1="500" y1="1850" x2="500" y2="1900" marker-end="url(#triangle)" />
+            <line id="l11" class="line" x1="600" y1="1850" x2="800" y2="1850" />
+            <line id="l12" class="line" x1="800" y1="1850" x2="800" y2="1900" marker-end="url(#triangle)" />
+            <line id="l13" class="line" x1="700" y1="1750" x2="700" y2="1800" />
+            <line id="l14" class="line" x1="700" y1="1800" x2="950" y2="1800" />
+            <line id="l15" class="line" x1="950" y1="1800" x2="950" y2="2100" marker-end="url(#triangle)" />
+            <line id="l16" class="line" x1="950" y1="1800" x2="2150" y2="1800" />
+            <line id="l17" class="line" x1="2150" y1="1800" x2="2250" y2="1800" />
+            <line id="l18" class="line" x1="2250" y1="1800" x2="2250" y2="1750" />
+            <!--- <line id="l19" class="line" x1="2150" y1="1800" x2="2150" y2="1850" /> --->
+            <line id="l20" class="line" x1="2150" y1="1800" x2="2150" y2="1850" />
+            <line id="l21" class="line" x1="2150" y1="1850" x2="2000" y2="1850" />
+            <line id="l22" class="line" x1="2000" y1="1850" x2="1700" y2="1850" />
+            <line id="l23" class="line" x1="1700" y1="1850" x2="1400" y2="1850" />
+            <line id="l24" class="line" x1="1400" y1="1850" x2="1100" y2="1850" />
+            <line id="l25" class="line" x1="2150" y1="1850" x2="2300" y2="1850" />
+            <line id="l26" class="line" x1="2300" y1="1850" x2="2600" y2="1850" />
+            <line id="l27" class="line" x1="2600" y1="1850" x2="2900" y2="1850" />
+            <line id="l28" class="line" x1="2900" y1="1850" x2="3200" y2="1850" />
+            <line id="l29" class="line" x1="3200" y1="1850" x2="3500" y2="1850" />
+            <line id="l30" class="line" x1="1100" y1="1850" x2="1100" y2="1900" marker-end="url(#triangle)" />
+            <line id="l31" class="line" x1="1400" y1="1850" x2="1400" y2="1900" marker-end="url(#triangle)" />
+            <line id="l32" class="line" x1="1700" y1="1850" x2="1700" y2="1900" marker-end="url(#triangle)" />
+            <line id="l33" class="line" x1="2000" y1="1850" x2="2000" y2="1900" marker-end="url(#triangle)" />
+            <line id="l34" class="line" x1="2300" y1="1850" x2="2300" y2="1900" marker-end="url(#triangle)" />
+            <line id="l35" class="line" x1="2600" y1="1850" x2="2600" y2="1900" marker-end="url(#triangle)" />
+            <line id="l36" class="line" x1="2900" y1="1850" x2="2900" y2="1900" marker-end="url(#triangle)" />
+            <line id="l37" class="line" x1="3200" y1="1850" x2="3200" y2="1900" marker-end="url(#triangle)" />
+            <line id="l38" class="line" x1="3500" y1="1850" x2="3500" y2="1900" marker-end="url(#triangle)" />
+            <line id="l39" class="line" x1="2350" y1="1750" x2="2350" y2="1800" />
+            <line id="l40" class="line" x1="2350" y1="1800" x2="3625" y2="1800" />
+            <line id="l41" class="line" x1="3625" y1="1800" x2="3625" y2="1875" />
+            <line id="l42" class="line" x1="3625" y1="1875" x2="3625" y2="1950" />
+            <line id="l43" class="line" x1="3600" y1="1950" x2="3625" y2="1950" />
+            <line id="l44" class="line" x1="3625" y1="1875" x2="3675" y2="1875" />
+            <line id="l45" class="line" x1="3675" y1="1875" x2="3675" y2="1800" />
+            <line id="l46" class="line" x1="3675" y1="1800" x2="3700" y2="1800" marker-end="url(#triangle)" />
+            <line id="l47" class="line" x1="3675" y1="1875" x2="3675" y2="1950" />
+            <line id="l48" class="line" x1="3675" y1="1950" x2="3700" y2="1950" marker-end="url(#triangle)" />
+            <line id="l49" class="line" x1="2400" y1="1700" x2="3950" y2="1700" />
+            <line id="l50" class="line" x1="3950" y1="1700" x2="3950" y2="1865" />
+            <line id="l51a" class="line" x1="3950" y1="1865" x2="3950" y2="1950" />
+            <line id="l51b" class="line" x1="3900" y1="1950" x2="3950" y2="1950" />
+            <line id="l52" class="line" x1="3950" y1="1865" x2="4000" y2="1865" marker-end="url(#triangle)" />
+            <line id="l53" class="line" x1="3450" y1="2000" x2="3450" y2="2050" />
+            <line id="l54" class="line" x1="3450" y1="2050" x2="3350" y2="2050" />
+            <line id="l55" class="line" x1="3350" y1="2050" x2="3350" y2="2100" marker-end="url(#triangle)" />
+            <line id="l56" class="line" x1="3550" y1="2000" x2="3550" y2="2050" />
+            <line id="l57" class="line" x1="3550" y1="2050" x2="3650" y2="2050" />
+            <line id="l58" class="line" x1="3650" y1="2050" x2="3650" y2="2100" marker-end="url(#triangle)" />
+            <line id="l59" class="line" x1="3650" y1="2050" x2="3950" y2="2050" />
+            <line id="l60" class="line" x1="3950" y1="2050" x2="3950" y2="2100" marker-end="url(#triangle)" />
+            <line id="l61" class="line" x1="3950" y1="2050" x2="4100" y2="2050" />
+            <line id="l62" class="line" x1="4100" y1="2050" x2="4100" y2="2025" />
+            <line id="l63" class="line" x1="4100" y1="2025" x2="4100" y2="1915" />
+            <line id="l64" class="line" x1="3800" y1="2000" x2="3800" y2="2025" />
+            <line id="l65" class="line" x1="3800" y1="2025" x2="4250" y2="2025" />
+            <line id="l66" class="line" x1="4250" y1="2025" x2="4250" y2="2025" />
+            <line id="l67" class="line" x1="4250" y1="2025" x2="4250" y2="2100" marker-end="url(#triangle)" />
+            <line id="l68" class="line" x1="4200" y1="1865" x2="4400" y2="1865" />
+            <line id="l69" class="line" x1="4400" y1="1865" x2="4400" y2="2025" />
+            <line id="l70" class="line" x1="4400" y1="2025" x2="4400" y2="2150" />
+            <line id="l71" class="line" x1="4400" y1="2150" x2="4350" y2="2150" />
+            <line id="l72" class="line" x1="4400" y1="2025" x2="4450" y2="2025" marker-end="url(#triangle)" />
+            <line id="l73" class="line" x1="650" y1="1625" x2="650" y2="1650" marker-end="url(#triangle)" />
+            <line id="l74" class="line" x1="650" y1="1625" x2="1400" y2="1625" />
+            <line id="l75" class="line" x1="1400" y1="1625" x2="1400" y2="1575" />
+            <line id="l76" class="line" x1="650" y1="1575" x2="1400" y2="1575" />
+            <line id="l77" class="line" x1="650" y1="1575" x2="650" y2="1550" />
+            <line id="l78" class="line" x1="1400" y1="1575" x2="2250" y2="1575" />
+            <line id="l79" class="line" x1="2250" y1="1575" x2="2250" y2="1650" />
+            <line id="l80" class="line" x1="350" y1="1350" x2="350" y2="1400" />
+            <line id="l81" class="line" x1="350" y1="1400" x2="650" y2="1400" />
+            <line id="l82" class="line" x1="650" y1="1350" x2="650" y2="1400" />
+            <line id="l83" class="line" x1="650" y1="1400" x2="950" y2="1400" />
+            <line id="l84" class="line" x1="950" y1="1350" x2="950" y2="1400" />
+            <line id="l85" class="line" x1="650" y1="1400" x2="650" y2="1450" marker-end="url(#triangle)" />
+            <line id="l86" class="line" x1="950" y1="1400" x2="2300" y2="1400" />
+            <line id="l87" class="line" x1="2300" y1="1400" x2="2300" y2="1650" />
+            <line id="l88" class="line" x1="650" y1="1250" x2="650" y2="1200" />
+            <line id="l89" class="line" x1="650" y1="1200" x2="650" y2="1150" />
+            <line id="l90" class="line" x1="350" y1="1200" x2="650" y2="1200" />
+            <line id="l91" class="line" x1="350" y1="1200" x2="350" y2="1250" marker-end="url(#triangle)" />
+            <line id="l92" class="line" x1="650" y1="1000" x2="650" y2="1050" marker-end="url(#triangle)" />
+            <line id="l93" class="line" x1="650" y1="1000" x2="400" y2="1000" />
+            <line id="l94" class="line" x1="400" y1="1000" x2="400" y2="950" />
+            <line id="l95" class="line" x1="650" y1="1000" x2="900" y2="1000" />
+            <line id="l96" class="line" x1="900" y1="1000" x2="900" y2="950" />
+            <line id="l97" class="line" x1="900" y1="800" x2="900" y2="850" marker-end="url(#triangle)" />
+            <line id="l98" class="line" x1="750" y1="800" x2="900" y2="800" />
+            <line id="l99" class="line" x1="1050" y1="800" x2="900" y2="800" />
+            <line id="l100" class="line" x1="750" y1="800" x2="750" y2="750" />
+            <line id="l101" class="line" x1="1050" y1="800" x2="1050" y2="750" />
+            <line id="l102" class="line" x1="250" y1="750" x2="250" y2="800" />
+            <line id="l103" class="line" x1="250" y1="800" x2="350" y2="800" />
+            <line id="l104" class="line" x1="350" y1="800" x2="350" y2="850" marker-end="url(#triangle)" />
+            <line id="l105" class="line" x1="350" y1="550" x2="350" y2="600" />
+            <line id="l106" class="line" x1="350" y1="600" x2="250" y2="600" />
+            <line id="l107" class="line" x1="250" y1="600" x2="250" y2="650" marker-end="url(#triangle)" />
+            <line id="l108" class="line" x1="450" y1="550" x2="450" y2="850" marker-end="url(#triangle)" />
+            <line id="l109" class="line dashed" x1="400" y1="350" x2="400" y2="450" marker-end="url(#triangle)" />
+            <line id="l110" class="line" x1="800" y1="1300" x2="750" y2="1300" marker-end="url(#triangle)" />
+            <line id="l111" class="line" x1="800" y1="1300" x2="800" y2="1200" />
+            <line id="l112" class="line" x1="800" y1="1200" x2="950" y2="1200" />
+            <line id="l113" class="line" x1="950" y1="1250" x2="950" y2="1200" />
+            <line id="l114" class="line" x1="950" y1="1200" x2="950" y2="1000" />
+            <line id="l115" class="line" x1="950" y1="1000" x2="900" y2="1000" />
+            <line id="l116" class="line" x1="950" y1="1200" x2="2150" y2="1200" />
+            <line id="l117" class="line" x1="2000" y1="750" x2="2000" y2="850" marker-end="url(#triangle)" />
+            <line id="l118" class="line" x1="2300" y1="750" x2="2300" y2="850" marker-end="url(#triangle)" />
+            <line id="l119" class="line" x1="2600" y1="750" x2="2600" y2="850" marker-end="url(#triangle)" />
+            <line id="l120" class="line" x1="2000" y1="950" x2="2000" y2="1050" />
+            <line id="l121" class="line" x1="2300" y1="950" x2="2300" y2="1050" />
+            <line id="l122" class="line" x1="2600" y1="950" x2="2600" y2="1050" />
+            <line id="l123" class="line" x1="2150" y1="1200" x2="2150" y2="1050" />
+            <line id="l124" class="line" x1="2350" y1="1050" x2="2350" y2="1650" marker-end="url(#triangle)" />
+            <line id="l125" class="line" x1="2000" y1="1050" x2="2150" y2="1050" />
+            <line id="l126" class="line" x1="2150" y1="1050" x2="2300" y2="1050" />
+            <line id="l127" class="line" x1="2300" y1="1050" x2="2350" y2="1050" />
+            <line id="l128" class="line" x1="2350" y1="1050" x2="2600" y2="1050" />
+            <line id="l129" class="line dashed" x1="3100" y1="700" x2="2700" y2="700" marker-end="url(#triangle)" />
+            <line id="l130" class="line dashed" x1="3100" y1="500" x2="3100" y2="700" />
+            <line id="l131" class="line dashed" x1="3100" y1="300" x2="3100" y2="400" />
+            <line id="l132" class="line" x1="2750" y1="550" x2="2750" y2="600" />
+            <line id="l133" class="line" x1="2750" y1="600" x2="2650" y2="600" />
+            <line id="l134" class="line" x1="2650" y1="600" x2="2650" y2="650" marker-end="url(#triangle)" />
+            <line id="l135" class="line" x1="2600" y1="650" x2="2600" y2="600" />
+            <line id="l136" class="line" x1="2600" y1="600" x2="2480" y2="600" />
+            <line id="l137" class="line dashed" x1="2480" y1="170" x2="2480" y2="270" />
+            <line id="l138" class="line dashed" x1="2480" y1="600" x2="2480" y2="370" />
+            <line id="l139" class="line dashed" x1="2480" y1="600" x2="2480" y2="700" />
+            <line id="l140" class="line dashed" x1="2480" y1="700" x2="2400" y2="700" marker-end="url(#triangle)" />
+            <line id="l141" class="line" x1="2450" y1="600" x2="2480" y2="600" />
+            <line id="l142" class="line" x1="2450" y1="600" x2="2300" y2="600" />
+            <line id="l143" class="line" x1="2300" y1="600" x2="2300" y2="650" />
+            <line id="l144" class="line" x1="2450" y1="600" x2="2450" y2="550" />
+            <line id="l145" class="line" x1="2450" y1="550" x2="2150" y2="550" />
+            <line id="l146" class="line" x1="2150" y1="500" x2="2150" y2="550" />
+            <line id="l147" class="line" x1="2150" y1="550" x2="2150" y2="700" />
+            <line id="l148" class="line" x1="2150" y1="700" x2="2200" y2="700" marker-end="url(#triangle)" />
+            <line id="l149" class="line dashed" x1="1750" y1="550" x2="1750" y2="350" />
+            <line id="l150" class="line dashed" x1="1750" y1="550" x2="1750" y2="700" />
+            <line id="l151" class="line dashed" x1="1750" y1="700" x2="1900" y2="700" marker-end="url(#triangle)" />
+            <line id="l152" class="line" x1="2150" y1="550" x2="1750" y2="550" />
+            <line id="l153" class="line" x1="750" y1="550" x2="1750" y2="550" />
+            <line id="l154" class="line" x1="750" y1="550" x2="750" y2="650" marker-end="url(#triangle)" />
+
+            <g id="t1" transform="translate(275,2050)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">50%</text>
+                <text class="text label" x="0" y="0">50%</text>
+            </g>
+            <g id="t2" transform="translate(425,2050)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">50%</text>
+                <text class="text label" x="0" y="0">50%</text>
+            </g>
+            <g id="t3" transform="translate(600,1800)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">100%</text>
+                <text class="text label" x="0" y="0">100%</text>
+            </g>
+            <g id="t4" transform="translate(900,1800)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">99%</text>
+                <text class="text label" x="0" y="0">99%</text>
+            </g>
+            <g id="t5" transform="translate(1000,1800)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">1%</text>
+                <text class="text label" x="0" y="0">1%</text>
+            </g>
+            <g id="t6" transform="translate(2100,1800)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">100%</text>
+                <text class="text label" x="0" y="0">100%</text>
+            </g>
+            <g id="t7" transform="translate(2200,1800)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">0%</text>
+                <text class="text label" x="0" y="0">0%</text>
+            </g>
+            <g id="t8" transform="translate(3400,2050)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">100%</text>
+                <text class="text label" x="0" y="0">100%</text>
+            </g>
+            <g id="t9" transform="translate(3600,2050)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">0%</text>
+                <text class="text label" x="0" y="0">0%</text>
+            </g>
+            <g id="t10" transform="translate(4050,2050)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">100%</text>
+                <text class="text label" x="0" y="0">100%</text>
+            </g>
+            <g id="t11" transform="translate(3950,2025)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">100%</text>
+                <text class="text label" x="0" y="0">100%</text>
+            </g>
+            <g id="t12" transform="translate(4400,2075)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">1%</text>
+                <text class="text label" x="0" y="0">1%</text>
+            </g>
+            <g id="t13" transform="translate(4400,1975)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">99%</text>
+                <text class="text label" x="0" y="0">99%</text>
+            </g>
+            <g id="t14" transform="translate(3625,1910)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">100%</text>
+                <text class="text label" x="0" y="0">100%</text>
+            </g>
+            <g id="t15" transform="translate(3625,1850)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">0%</text>
+                <text class="text label" x="0" y="0">0%</text>
+            </g>
+            <g id="t16" transform="translate(3950,1910)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">100%</text>
+                <text class="text label" x="0" y="0">100%</text>
+            </g>
+            <g id="t17" transform="translate(3950,1790)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">0%</text>
+                <text class="text label" x="0" y="0">0%</text>
+            </g>
+            <g id="t18" transform="translate(1350,1575)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">100%</text>
+                <text class="text label" x="0" y="0">100%</text>
+            </g>
+            <g id="t19" transform="translate(1450,1575)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">0%</text>
+                <text class="text label" x="0" y="0">0%</text>
+            </g>
+            <g id="t20" transform="translate(2300,1425)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">0.2475%</text>
+                <text class="text label" x="0" y="0">0.2475%</text>
+            </g>
+            <g id="t21" transform="translate(950,1375)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">0%</text>
+                <text class="text label" x="0" y="0">0%</text>
+            </g>
+            <g id="t22" transform="translate(650,1375)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">0.2464%</text>
+                <text class="text label" x="0" y="0">0.2464%</text>
+            </g>
+            <g id="t23" transform="translate(350,1375)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">99.5061%</text>
+                <text class="text label" x="0" y="0">99.5061%</text>
+            </g>
+            <g id="t24" transform="translate(650,1225)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">0%</text>
+                <text class="text label" x="0" y="0">0%</text>
+            </g>
+            <g id="t25" transform="translate(650,1175)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">100%</text>
+                <text class="text label" x="0" y="0">100%</text>
+            </g>
+            <g id="t26" transform="translate(400,975)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">50%</text>
+                <text class="text label" x="0" y="0">50%</text>
+            </g>
+            <g id="t27" transform="translate(900,975)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">50%</text>
+                <text class="text label" x="0" y="0">50%</text>
+            </g>
+            <g id="t28" transform="translate(950,1025)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">0%</text>
+                <text class="text label" x="0" y="0">0%</text>
+            </g>
+            <g id="t29" transform="translate(300,800)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">0%</text>
+                <text class="text label" x="0" y="0">0%</text>
+            </g>
+            <g id="t30" transform="translate(825,800)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">2%</text>
+                <text class="text label" x="0" y="0">2%</text>
+            </g>
+            <g id="t31" transform="translate(975,800)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">98%</text>
+                <text class="text label" x="0" y="0">98%</text>
+            </g>
+            <g id="t32" transform="translate(300,600)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">100%</text>
+                <text class="text label" x="0" y="0">100%</text>
+            </g>
+            <g id="t33" transform="translate(450,700)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">100%</text>
+                <text class="text label" x="0" y="0">100%</text>
+            </g>
+            <g id="t34" transform="translate(2000,800)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">100%</text>
+                <text class="text label" x="0" y="0">100%</text>
+            </g>
+            <g id="t35" transform="translate(2300,800)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">100%</text>
+                <text class="text label" x="0" y="0">100%</text>
+            </g>
+            <g id="t36" transform="translate(2600,800)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">100%</text>
+                <text class="text label" x="0" y="0">100%</text>
+            </g>
+            <g id="t37" transform="translate(2000,1000)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">50%</text>
+                <text class="text label" x="0" y="0">50%</text>
+            </g>
+            <g id="t38" transform="translate(2300,1000)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">25%</text>
+                <text class="text label" x="0" y="0">25%</text>
+            </g>
+            <g id="t39" transform="translate(2600,1000)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">25%</text>
+                <text class="text label" x="0" y="0">25%</text>
+            </g>
+            <g id="t40" transform="translate(2150,600)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">100%</text>
+                <text class="text label" x="0" y="0">100%</text>
+            </g>
+            <g id="t41" transform="translate(2375,600)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">50%</text>
+                <text class="text label" x="0" y="0">50%</text>
+            </g>
+            <g id="t42" transform="translate(2525,600)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">50%</text>
+                <text class="text label" x="0" y="0">50%</text>
+            </g>
+            <g id="t43" transform="translate(2700,600)" dominant-baseline="middle" text-anchor="middle">
+                <text class="halo label" x="0" y="0">100%</text>
+                <text class="text label" x="0" y="0">100%</text>
+            </g>
+        </svg>
+    </div>
+
+    <script>
+        entityData = `{
+            "ophir": {
+                "name": "Ophir Green Corp",
+                "type": "Corporation",
+                "poi": "British Virgin Islands",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Unknown",
+                "status": "Debtor",
+                "assets": "0",
+                "liabilities": "0",
+                "lines": ["l1","l2","l3","l6","l7","l8","l9"],
+                "owner_of": ["purdue_puerto_rico"],
+                "owned_by": ["purdue_pharma_lp"],
+                "labels": ["t1","t3"],
+                "text": "<b>Name:</b> Ophir Green Corp<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> British Virgin Islands<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Debtor<br><b>Assets:</b> $0<br><b>Liabilities:</b> $0"
+            },
+            "seven_seas": {
+                "name": "Seven Seas Hill Corp",
+                "type": "Corporation",
+                "poi": "British Virgin Islands",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Unknown",
+                "status": "Debtor",
+                "assets": "0",
+                "liabilities": "0",
+                "lines": ["l3","l4","l5","l6","l7","l10"],
+                "owner_of": ["purdue_puerto_rico"],
+                "owned_by": ["purdue_pharma_lp"],
+                "labels": ["t2","t3"],
+                "text": "<b>Name:</b> Seven Seas Hill Corp<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> British Virgin Islands<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Debtor<br><b>Assets:</b> $0<br><b>Liabilities:</b> $0"
+            },
+            "nyatt_cove": {
+                "name": "Nyatt Cove Lifescience Inc",
+                "type": "Corporation",
+                "poi": "Delaware",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Non-operating Company",
+                "status": "Debtor",
+                "assets": "10192490",
+                "liabilities": "0",
+                "lines": ["l6","l11","l12"],
+                "owner_of": [],
+                "owned_by": ["purdue_pharma_lp"],
+                "labels": ["t3"],
+                "text": "<b>Name:</b> Nyatt Cove Lifescience Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $10,192,490<br><b>Liabilities:</b> $0"
+            },
+            "purdue_puerto_rico": {
+                "name": "Purdue Pharma of Puerto Rico",
+                "type": "General Partnership",
+                "poi": "Delaware",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Operating Company",
+                "status": "Debtor",
+                "assets": "43223",
+                "liabilities": "2651",
+                "lines": ["l1","l2","l3","l4","l5"],
+                "owner_of": [],
+                "owned_by": ["ophir","seven_seas"],
+                "labels": ["t1","t2"],
+                "text": "<b>Name:</b> Purdue Pharma of Puerto Rico<br><b>Company Type:</b> General Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $43,223<br><b>Liabilities:</b> $2,651"
+            },
+            "purdue_neuroscience": {
+                "name": "Purdue Neuroscience Company",
+                "type": "General Partnership",
+                "poi": "Delaware",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Inactive",
+                "status": "Debtor",
+                "assests": "6186281",
+                "liabilities": "0",
+                "lines": ["l13","l14","l15","l16","l17","l18"],
+                "owner_of": [],
+                "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
+                "labels": ["t4","t5"],
+                "text": "<b>Name:</b> Purdue Neuroscience Company<br><b>Company Type:</b> General Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Inactive<br><b>Status:</b> Debtor<br><b>Assets:</b> $6,186,281<br><b>Liabilities:</b> $0"
+            },
+            "purdue_pharma_lp": {
+                "name": "Purdue Pharma LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Operating Company",
+                "status": "Debtor",
+                "assests": "1543275938",
+                "liabilities": "15877593",
+                "lines": ["l6","l7","l8","l9","l10","l11","l12","l13","l14","l15","l16","l20","l21","l22","l23","l24","l25","l26","l27","l28","l29","l30","l31","l32","l33","l34","l35","l36","l37","l38","l73","l74","l75","l76","l77","l78","l79"],
+                "owner_of": ["ophir", "seven_seas", "nyatt_cove", "purdue_neuroscience", "adlon", "purdue_transdermal", "ibrium", "purdue_pharma_products", "greenfield_bioventures", "purdue_pharma_manufacturing", "purdue_pharmaceuticals_lp", "avrio_health", "rhodes_associates"],
+                "owned_by": ["purdue_pharma_inc", "purdue_research"],
+                "labels": ["t3","t4","t6","t18","t19"],
+                "text": "<b>Name:</b> Purdue Pharma LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $1,543,275,938<br><b>Liabilities:</b> $15,877,593"
+            },
+            "adlon": {
+                "name": "Adlon Therapeutics LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Operating Company",
+                "status": "Debtor",
+                "assests": "3755544",
+                "liabilities": "2066602",
+                "lines": ["l13","l14","l16","l17","l18","l20","l21","l22","l23","l24","l30"],
+                "owner_of": [],
+                "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
+                "labels": ["t6","t7"],
+                "text": "<b>Name:</b> Adlon Therapeutics LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $3,755,544<br><b>Liabilities:</b> $2,066,602"
+            },
+            "purdue_transdermal": {
+                "name": "Purdue Transdermal Technologies LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Operating Company",
+                "status": "Debtor",
+                "assests": "7573074",
+                "liabilities": "36512",
+                "lines": ["l13","l14","l16","l17","l18","l20","l21","l22","l23","l31"],
+                "owner_of": [],
+                "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
+                "labels": ["t6","t7"],
+                "text": "<b>Name:</b> Purdue Transdermal Technologies LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $7,573,074<br><b>Liabilities:</b> $36,512"
+            },
+            "ibrium": {
+                "name": "Ibrium Therapeutics LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Operating Company",
+                "status": "Debtor",
+                "assests": "1227633",
+                "liabilities": "753345",
+                "lines": ["l13","l14","l16","l17","l18","l20","l21","l22","l32"],
+                "owner_of": [],
+                "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
+                "labels": ["t6","t7"],
+                "text": "<b>Name:</b> Ibrium Therapeutics LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $1,227,633<br><b>Liabilities:</b> $753,345"
+            },
+            "purdue_pharma_products": {
+                "name": "Purdue Pharmaceutical Products LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Non-operating Company",
+                "status": "Debtor",
+                "assests": "241412",
+                "liabilities": "1120",
+                "lines": ["l13","l14","l16","l17","l18","l20","l21","l33"],
+                "owner_of": [],
+                "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
+                "labels": ["t6","t7"],
+                "text": "<b>Name:</b> Purdue Pharmaceutical Products LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $241,412<br><b>Liabilities:</b> $1,120"
+            },
+            "greenfield_bioventures": {
+                "name": "Greenfield BioVentures LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Non-operating Company",
+                "status": "Debtor",
+                "assests": "0",
+                "liabilities": "252038",
+                "lines": ["l13","l14","l16","l17","l18","l20","l25","l34"],
+                "owner_of": [],
+                "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
+                "labels": ["t6","t7"],
+                "text": "<b>Name:</b> Greenfield BioVentures LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $0<br><b>Liabilities:</b> $252,038"
+            },
+            "purdue_pharma_manufacturing": {
+                "name": "Purdue Pharma Manufactoring LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Operating Company",
+                "status": "Debtor",
+                "assests": "11721721",
+                "liabilities": "1218155",
+                "lines": ["l13","l14","l16","l17","l18","l20","l25","l26","l35"],
+                "owner_of": [],
+                "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
+                "labels": ["t6","t7"],
+                "text": "<b>Name:</b> Purdue Pharma Manufactoring LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $11,721,721<br><b>Liabilities:</b> $1,218,155"
+            },
+            "purdue_pharmaceuticals_lp": {
+                "name": "Purdue Pharmaceuticals LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Operating Company",
+                "status": "Debtor",
+                "assests": "82673323",
+                "liabilities": "1590320",
+                "lines": ["l13","l14","l16","l17","l18","l20","l25","l26","l27","l36"],
+                "owner_of": [],
+                "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
+                "labels": ["t6","t7"],
+                "text": "<b>Name:</b> Purdue Pharmaceuticals LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $82,673,323<br><b>Liabilities:</b> $1,590,320"
+            },
+            "avrio_health": {
+                "name": "Avrio Health LP (formerly Purdue Products LP)",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Operating Company",
+                "status": "Debtor",
+                "assests": "17883864",
+                "liabilities": "2608070",
+                "lines": ["l13","l14","l16","l17","l18","l20","l25","l26","l27","l28","l37"],
+                "owner_of": [],
+                "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
+                "labels": ["t6","t7"],
+                "text": "<b>Name:</b> Avrio Health LP (formerly Purdue Products LP)<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $17,883,864<br><b>Liabilities:</b> $2,608,070"
+            },
+            "rhodes_associates": {
+                "name": "Rhodes Associates LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "498 Washington St, Coventry, RI",
+                "business": "Unknown",
+                "status": "Debtor",
+                "assests": "0",
+                "liabilities": "0",
+                "lines": ["l13","l14","l16","l17","l18","l20","l25","l26","l27","l28","l29","l38","l42","l43","l44","l45","l46","l47","l48","l53","l54","l55","l56","l57","l58","l59","l60"],
+                "owner_of": ["paul_land", "button_land", "quidnick_land", "rhodes_pharmaceuticals", "rhodes_technologies"],
+                "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
+                "labels": ["t6","t7","t8","t9","t14"],
+                "text": "<b>Name:</b> Rhodes Associates LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Debtor<br><b>Assets:</b> $0<br><b>Liabilities:</b> $0"
+            },
+            "rhodes_technologies": {
+                "name": "Rhodes Technologies",
+                "type": "General Partnership",
+                "poi": "Delaware",
+                "address": "498 Washington St, Coventry, RI",
+                "business": "Operating Company",
+                "status": "Debtor",
+                "assests": "96843680",
+                "liabilities": "1420136",
+                "lines": ["l39","l40","l41","l42","l43","l44","l47","l48","l51a","l51b","l52","l64","l65","l67"],
+                "owner_of": ["udf", "svc_pharma_inc"],
+                "owned_by": ["purdue_pharma_inc", "rhodes_associates"],
+                "labels": ["t11","t14","t15","t16"],
+                "text": "<b>Name:</b> Rhodes Technologies<br><b>Company Type:</b> General Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $96,843,680<br><b>Liabilities:</b> $1,420,136"
+            },
+            "rhodes_pharmaceuticals": {
+                "name": "Rhodes Pharmaceuticals LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "498 Washington St, Coventry, RI",
+                "business": "Operating Company",
+                "status": "Debtor",
+                "assests": "124398593",
+                "liabilities": "1723312",
+                "lines": ["l39","l40","l41","l42","l43","l44","l45","l46"],
+                "owner_of": [],
+                "owned_by": ["purdue_pharma_inc", "rhodes_associates"],
+                "labels": ["t14","t15"],
+                "text": "<b>Name:</b> Rhodes Pharmaceuticals LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $124,398,593<br><b>Liabilities:</b> $1,723,312"
+            },
+            "udf": {
+                "name": "UDF LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "498 Washington St, Coventry, RI",
+                "business": "Non-operating Company",
+                "status": "Debtor",
+                "assests": "0",
+                "liabilities": "0",
+                "lines": ["l49","l50","l51a","l51b","l52","l58","l59","l60","l61","l62","l63","l68","l69","l72"],
+                "owner_of": ["button_land", "quidnick_land", "svc_pharma_lp"],
+                "owned_by": ["purdue_pharma_inc", "rhodes_technologies"],
+                "labels": ["t10","t13","t16","t17"],
+                "text": "<b>Name:</b> UDF LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $0<br><b>Liabilities:</b> $0"
+            },
+            "paul_land": {
+                "name": "Paul Land Inc",
+                "type": "Corporation",
+                "poi": "New York",
+                "address": "498 Washington St, Coventry, RI",
+                "business": "Non-operating Company",
+                "status": "Debtor",
+                "assests": "2650",
+                "liabilities": "0",
+                "lines": ["l53","l54","l55"],
+                "owner_of": [],
+                "owned_by": ["rhodes_associates"],
+                "labels": ["t8"],
+                "text": "<b>Name:</b> Paul Land Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> New York<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $2,650<br><b>Liabilities:</b> $0"
+            },
+            "button_land": {
+                "name": "Button Land LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "498 Washington St, Coventry, RI",
+                "business": "Real Estate",
+                "status": "Debtor",
+                "assests": "49100",
+                "liabilities": "0",
+                "lines": ["l56","l57","l58","l59","l61","l62","l63"],
+                "owner_of": [],
+                "owned_by": ["rhodes_associates", "udf"],
+                "labels": ["t9","t10"],
+                "text": "<b>Name:</b> Button Land LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Real Estate<br><b>Status:</b> Debtor<br><b>Assets:</b> $49,100<br><b>Liabilities:</b> $0"
+            },
+            "quidnick_land": {
+                "name": "Quidnick Land LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "498 Washington St, Coventry, RI",
+                "business": "Real Estate",
+                "status": "Debtor",
+                "assests": "355100",
+                "liabilities": "0",
+                "lines": ["l56","l57","l59","l60","l61","l62","l63"],
+                "owner_of": [],
+                "owned_by": ["rhodes_associates", "udf"],
+                "labels": ["t9","t10"],
+                "text": "<b>Name:</b> Quidnick Land LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Real Estate<br><b>Status:</b> Debtor<br><b>Assets:</b> $355,100<br><b>Liabilities:</b> $0"
+            },
+            "svc_pharma_inc": {
+                "name": "SVC Pharma Inc",
+                "type": "Corporation",
+                "poi": "Delaware",
+                "address": "498 Washington St, Coventry, RI",
+                "business": "Unknown",
+                "status": "Debtor",
+                "assests": "51186",
+                "liabilities": "0",
+                "lines": ["l64","l65","l67","l70","l71","l72"],
+                "owner_of": ["svc_pharma_lp"],
+                "owned_by": ["rhodes_technologies"],
+                "labels": ["t11"],
+                "text": "<b>Name:</b> SVC Pharma Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Debtor<br><b>Assets:</b> $51,186<br><b>Liabilities:</b> $0"
+            },
+            "svc_pharma_lp": {
+                "name": "SVC Pharma LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "498 Washington St, Coventry, RI",
+                "business": "Non-operating Company",
+                "status": "Debtor",
+                "assests": "3498725",
+                "liabilities": "4502",
+                "lines": ["l68","l69","l70","l71","l72"],
+                "owner_of": [],
+                "owned_by": ["svc_pharma_inc", "udf"],
+                "labels": ["t12","t13"],
+                "text": "<b>Name:</b> SVC Pharma LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $3,498,725<br><b>Liabilities:</b> $4,502"
+            },
+            "purdue_pharma_inc": {
+                "name": "Purdue Pharma Inc",
+                "type": "Corporation",
+                "poi": "New York",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Unknown",
+                "status": "Debtor",
+                "assests": "1582270",
+                "liabilities": "2344",
+                "lines": ["l15","l16","l17","l18","l20","l21","l22","l23","l24","l25","l26","l27","l28","l29","l30","l31","l32","l33","l34","l35","l36","l37","l38","l39","l40","l41","l44","l45","l46","l47","l48","l49","l50","l52","l73","l74","l75","l78","l79","l83","l85","l86","l87","l120","l121","l122","l124","l125","l126","l127","l128"],
+                "owner_of": ["purdue_neuroscience", "adlon", "purdue_transdermal", "ibrium", "purdue_pharma_products", "greenfield_bioventures", "purdue_pharma_manufacturing", "purdue_pharmaceuticals_lp", "avrio_health",  "rhodes_associates", "rhodes_technologies", "rhodes_pharmaceuticals", "udf", "purdue_pharma_lp", "purdue_research"],
+                "owned_by": ["banela", "linarite_holdings", "perthlite_holdings"],
+                "labels": ["t5","t7","t15","t17","t19","t20","t37","t38","t39"],
+                "text": "<b>Name:</b> Purdue Pharma Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> New York<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Debtor<br><b>Assets:</b> $1,582,270<br><b>Liabilities:</b> $2,344"
+            },
+            "purdue_research": {
+                "name": "Purdue Research Associates LP (formerly Purdue Holdings LP)",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l73","l74","l75","l76","l77","l80","l81","l82","l83","l84","l85","l86","l87"],
+                "owner_of": ["purdue_pharma_lp"],
+                "owned_by": ["plp_associates_lp", "plp_associates_inc", "br_holdings_inc", "purdue_pharma_inc"],
+                "labels": ["t18","t20","t21","t22","t23"],
+                "text": "<b>Name:</b> Purdue Research Associates LP (formerly Purdue Holdings LP)<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+            },
+            "plp_associates_lp": {
+                "name": "PLP Associates Holdings LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l80","l81","l85","l88","l89","l90","l91"],
+                "owner_of": ["purdue_research"],
+                "owned_by": ["plp_associates_inc", "br_holdings_lp"],
+                "labels": ["t23","t24","t25"],
+                "text": "<b>Name:</b> PLP Associates Holdings LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+            },
+            "plp_associates_inc": {
+                "name": "PLP Associates Holdings Inc",
+                "type": "Corporation",
+                "poi": "New York",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l82","l85","l88","l89","l90","l91","l110","l111","l112","l116","l120","l121","l122","l123","l125","l126","l127","l128"],
+                "owner_of": ["plp_associates_lp", "purdue_research"],
+                "owned_by": ["banela", "linarite_holdings", "perthlite_holdings"],
+                "labels": ["t22","t24","t37","t38","t39"],
+                "text": "<b>Name:</b> PLP Associates Holdings Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> New York<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+            },
+            "br_holdings_inc": {
+                "name": "BR Holdings Associates Inc",
+                "type": "Corporation",
+                "poi": "New York",
+                "address": "One Stamford Forum, Stamford, CT",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l83","l84","l85","l92","l95","l113","l114","l115"],
+                "owner_of": ["purdue_research", "br_holdings_lp"],
+                "owned_by": [],
+                "labels": ["t21","t28"],
+                "text": "<b>Name:</b> BR Holdings Associates Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> New York<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+            },
+            "br_holdings_lp": {
+                "name": "BR Holdings Associates LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l89","l90","l91","l92","l93","l94","l95","l96","l113","l114","l115"],
+                "owner_of": ["plp_associates_lp"],
+                "owned_by": ["beacon", "rosebay_medical_lp", "br_holdings_inc"],
+                "labels": ["t25","t26","t27","t28"],
+                "text": "<b>Name:</b> BR Holdings Associates LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+            },
+            "beacon": {
+                "name": "Beacon Company",
+                "type": "General Partnership",
+                "poi": "Delaware",
+                "address": "Zurich, Switzerland",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l92","l93","l94","l102","l103","l104","l108"],
+                "owner_of": ["br_holdings_lp"],
+                "owned_by": ["heatheridge", "stanhope_gate"],
+                "labels": ["t26","t29","t33"],
+                "text": "<b>Name:</b> Beacon Company<br><b>Company Type:</b> General Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> Zurich, Switzerland<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+            },
+            "rosebay_medical_lp": {
+                "name": "Rosebay Medical LP",
+                "type": "Limited Partnership",
+                "poi": "Delaware",
+                "address": "North Bay Associates, Oklahoma City, OK",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l92","l95","l96","l97","l98","l99","l100","l101"],
+                "owner_of": ["br_holdings_lp"],
+                "owned_by": ["rosebay_medical_inc", "trust_1974"],
+                "labels": ["t27","t30","t31"],
+                "text": "<b>Name:</b> Rosebay Medical LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> North Bay Associates, Oklahoma City, OK<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+            },
+            "stanhope_gate": {
+                "name": "Stanhope Gate Corp",
+                "type": "Corporation",
+                "poi": "British Virgin Islands",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l102","l103","l104","l105","l106","l107"],
+                "owner_of": ["beacon"],
+                "owned_by": ["heatheridge"],
+                "labels": ["t29","t32"],
+                "text": "<b>Name:</b> Stanhope Gate Corp<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> British Virgin Islands<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+            },
+            "heatheridge": {
+                "name": "Heatherridge Trust Company Limited",
+                "type": "Limited Company",
+                "poi": "Jersey (Channel Islands)",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l105","l106","l107","l108","l109"],
+                "owner_of": ["stanhope_gate", "beacon"],
+                "owned_by": ["beacon_trust"],
+                "labels": ["t32","t33"],
+                "text": "<b>Name:</b> Heatherridge Trust Company Limited<br><b>Company Type:</b> Limited Company<br><b>Place of Incorporation:</b> Jersey (Channel Islands)<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+            },
+            "rosebay_medical_inc": {
+                "name": "Rosebay Medical Inc",
+                "type": "Corporation",
+                "poi": "Delaware",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l97","l98","l100","l135","l136","l141","l142","l143","l144","l145","l152","l153","l154"],
+                "owner_of": ["rosebay_medical_lp"],
+                "owned_by": ["data_llc","cornice_fiduciary"],
+                "labels": ["t30","t41","t42"],
+                "text": "<b>Name:</b> Rosebay Medical Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+            },
+            "banela": {
+                "name": "Banela Corporation",
+                "type": "Corporation",
+                "poi": "British Virgin Islands",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l110","l111","l112","l116","l117","l120","l123","l124","l125","l126","l127"],
+                "owner_of": ["purdue_pharma_inc", "plp_associates_inc"],
+                "owned_by": ["millborne"],
+                "labels": ["t34","t37"],
+                "text": "<b>Name:</b> Banela Corporation<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> British Virgin Islands<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+            },
+            "linarite_holdings": {
+                "name": "Linarite Holdings LLC",
+                "type": "Limited Liability Company",
+                "poi": "Delaware",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l110","l111","l112","l116","l118","l121","l123","l124","l126","l127"],
+                "owner_of": ["purdue_pharma_inc", "plp_associates_inc"],
+                "owned_by": ["data_llc"],
+                "labels": ["t35","t38"],
+                "text": "<b>Name:</b> Linarite Holdings LLC<br><b>Company Type:</b> Limited Liability Company<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+            },
+            "perthlite_holdings": {
+                "name": "Perthlite Holdings LLC",
+                "type": "Limited Liability Company",
+                "poi": "Delaware",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l110","l111","l112","l116","l119","l122","l123","l124","l126","l127","l128"],
+                "owner_of": ["purdue_pharma_inc", "plp_associates_inc"],
+                "owned_by": ["cornice_fiduciary"],
+                "labels": ["t36","t39"],
+                "text": "<b>Name:</b> Perthlite Holdings LLC<br><b>Company Type:</b> Limited Liability Company<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+            },
+            "millborne": {
+                "name": "Millborne Trust Company Limited",
+                "type": "Limited Company",
+                "poi": "Jersey (Channel Islands)",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l117","l149","l150","l151"],
+                "owner_of": ["banela"],
+                "owned_by": ["hercules_trust"],
+                "labels": ["t34"],
+                "text": "<b>Name:</b> Millborne Trust Company Limited<br><b>Company Type:</b> Limited Company<br><b>Place of Incorporation:</b> Jersey (Channel Islands)<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+            },
+            "data_llc": {
+                "name": "Data LLC",
+                "type": "Limited Liability Company",
+                "poi": "Wyoming; New York",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l118","l138","l139","l140","l142","l143","l144","l145","l146","l147","l148","l152","l153","l154"],
+                "owner_of": ["rosebay_medical_inc", "linarite_holdings"],
+                "owned_by": ["data_trust", "rrs_trust_89_1b"],
+                "labels": ["t35","t40","t41"],
+                "text": "<b>Name:</b> Data LLC<br><b>Company Type:</b> Limited Liability Company<br><b>Place of Incorporation:</b> Wyoming; New York<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+            },
+            "cornice_fiduciary": {
+                "name": "Cornice Fiduciary Management LLC",
+                "type": "Limited Liability Company",
+                "poi": "Delaware",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l119","l129","l130","l132","l133","l134","l135","l136","l141","l144","l145","l152","l153","l154"],
+                "owner_of": ["rosebay_medical_inc", "perthlite_holdings"],
+                "owned_by": ["cornice_trust", "rrs_trust_89_2b"],
+                "labels": ["t36","t42","t43"],
+                "text": "<b>Name:</b> Cornice Fiduciary Management LLC<br><b>Company Type:</b> Limited Liability Company<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+            },
+            "trust_1974": {
+                "name": "Trust under agreement 11/5/1974 for the benefit of Beverly Sackler",
+                "type": "Trust",
+                "poi": "Wyoming; New York",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": [],
+                "owner_of": ["rosebay_medical_lp"],
+                "owned_by": ["l97","l99","l101"],
+                "labels": ["t31"],
+                "text": "<b>Name:</b> Trust under agreement 11/5/1974 for the benefit of Beverly Sackler<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Wyoming (administration); New York (validity and construction)<br><b>Trustees:</b> Richard Sackler and Jonathan Sackler<br><b>Status:</b> Non-debtor"
+            },
+            "beacon_trust": {
+                "name": "Beacon Trust",
+                "type": "Trust",
+                "poi": "Jersey (Channel Islands)",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l109"],
+                "owner_of": ["heatheridge"],
+                "owned_by": [],
+                "labels": [],
+                "text": "<b>Name:</b> Beacon Trust<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Jersey (Channel Islands)<br><b>Trustees:</b> Heatheridge Trust Company Limited<br><b>Status:</b> Non-debtor"
+            },
+            "hercules_trust": {
+                "name": "Hercules Trust",
+                "type": "Trust",
+                "poi": "Jersey (Channel Islands)",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l149","l150","l151"],
+                "owner_of": ["millborne"],
+                "owned_by": [],
+                "labels": [],
+                "text": "<b>Name:</b> Hercules Trust<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Jersey (Channel Islands)<br><b>Trustees:</b> Millborne Trust Company Limited<br><b>Status:</b> Non-debtor"
+            },
+            "rrs_trust_89_1b": {
+                "name": "Raymond R Sackler Trust 1B dtd 12/23/1989",
+                "type": "Trust",
+                "poi": "Wyoming; New York",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l137","l138","l139","l140"],
+                "owner_of": ["data_llc"],
+                "owned_by": ["rrs_trust_89_1a"],
+                "labels": [],
+                "text": "<b>Name:</b> Raymond R Sackler Trust 1B dtd 12/23/1989<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Wyoming (administration); New York (validity and construction)<br><b>Trustees:</b> Data LLC<br><b>Status:</b> Non-debtor"
+            },
+            "rrs_trust_89_2b": {
+                "name": "Raymond R Sackler Trust 2B dtd 12/23/1989",
+                "type": "Trust",
+                "poi": "Wyoming; New York",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l129","l130","l131"],
+                "owner_of": ["cornice_fiduciary"],
+                "owned_by": ["rrs_trust_89_2a"],
+                "labels": [],
+                "text": "<b>Name:</b> Raymond R Sackler Trust 2B dtd 12/23/1989<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Wyoming (administration); New York (validity and construction)<br><b>Trustees:</b> Cornice Fiduciary Management LLC<br><b>Status:</b> Non-debtor"
+            },
+            "rrs_trust_89_1a": {
+                "name": "Raymond R Sackler Trust 1A dtd 12/23/1989",
+                "type": "Trust",
+                "poi": "Wyoming; New York",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l137"],
+                "owner_of": ["rrs_trust_89_1b"],
+                "owned_by": [],
+                "labels": [],
+                "text": "<b>Name:</b> Raymond R Sackler Trust 1A dtd 12/23/1989<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Wyoming (administration); New York (validity and construction)<br><b>Trustees:</b> Data LLC<br><b>Status:</b> Non-debtor"
+            },
+            "rrs_trust_89_2a": {
+                "name": "Raymond R Sackler Trust 2A dtd 12/23/1989",
+                "type": "Trust",
+                "poi": "Wyoming; New York",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l131"],
+                "owner_of": ["rrs_trust_89_2b"],
+                "owned_by": [],
+                "labels": [],
+                "text": "<b>Name:</b> Raymond R Sackler Trust 2A dtd 12/23/1989<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Wyoming (administration); New York (validity and construction)<br><b>Trustees:</b> Cornice Fiduciary Management LLC<br><b>Status:</b> Non-debtor"
+            },
+            "data_trust": {
+                "name": "Data Trust",
+                "type": "Trust",
+                "poi": "Wyoming",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l146","l147","l148"],
+                "owner_of": ["data_llc"],
+                "owned_by": [],
+                "labels": ["t40"],
+                "text": "<b>Name:</b> Data Trust<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Wyoming<br><b>Trustees:</b> Leslie Schreyer and Jeffrey Robins, Norton Rose Fullbright<br><b>Status:</b> Non-debtor"
+            },
+            "cornice_trust": {
+                "name": "Cornice Trust",
+                "type": "Trust",
+                "poi": "Wyoming",
+                "address": "Unknown",
+                "business": "Unknown",
+                "status": "Non-debtor",
+                "assests": "Unknown",
+                "liabilities": "Unknown",
+                "lines": ["l132","l133","l134"],
+                "owner_of": ["cornice_fiduciary"],
+                "owned_by": [],
+                "labels": ["t43"],
+                "text": "<b>Name:</b> Cornice Trust<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Wyoming<br><b>Trustees:</b> Leslie Schreyer and Jeffrey Robins, Norton Rose Fullbright<br><b>Status:</b> Non-debtor"
+            }
+        }`
+
+        let entityObj = JSON.parse(entityData)
+
+        const svgImage = document.getElementById("svgImage");
+        const svgSize = { w: svgImage.clientWidth, h: svgImage.clientHeight }
+        // let viewBox = { x: 0, y: 0, w: svgImage.clientWidth, h: svgImage.clientHeight };
+        let viewBox = { x: 0, y: 0, w: svgImage.viewBox.baseVal.width, h: svgImage.viewBox.baseVal.height };
+        let scale = 1;
+        let isPanning = false;
+        let startPoint = { x: 0, y: 0 };
+        let endPoint = { x: 0, y: 0 };
+
+
+        function zoom(evt) {
+            evt.preventDefault();
+            let w = viewBox.w;
+            let h = viewBox.h;
+            let mx = evt.offsetX;//mouse x  
+            let my = evt.offsetY;
+            let dw = w * Math.sign(evt.deltaY) * 0.05;
+            let dh = h * Math.sign(evt.deltaY) * 0.05;
+            let dx = dw * mx / svgSize.w;
+            let dy = dh * my / svgSize.h;
+            viewBox = { x: viewBox.x + dx, y: viewBox.y + dy, w: viewBox.w - dw, h: viewBox.h - dh };
+            scale = svgSize.w / viewBox.w;
+            svgImage.viewBox.x = viewBox.x;
+            svgImage.viewBox.y = viewBox.y;
+            svgImage.viewBox.width = viewBox.w;
+            svgImage.viewBox.height = viewBox.h;
+            svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+        }
+
+        function zoomInClick() {
+            let w = viewBox.w;
+            let h = viewBox.h;
+            let cx = viewBox.x + w / 2;
+            let cy = viewBox.y + h / 2;
+            let dw = w * 0.25;
+            let dh = h * 0.25;
+            viewBox = { x: cx - (w - dw) / 2, y: cy - (h - dh) / 2, w: viewBox.w - dw, h: viewBox.h - dh };
+            scale = svgSize.w / viewBox.w;
+            svgImage.viewBox.x = viewBox.x;
+            svgImage.viewBox.y = viewBox.y;
+            svgImage.viewBox.width = viewBox.w;
+            svgImage.viewBox.height = viewBox.h;
+            svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+        }
+
+        function zoomOutClick() {
+            let w = viewBox.w;
+            let h = viewBox.h;
+            let cx = viewBox.x + w / 2;
+            let cy = viewBox.y + h / 2;
+            let dw = w * -0.25;
+            let dh = h * -0.25;
+            viewBox = { x: cx - (w - dw) / 2, y: cy - (h - dh) / 2, w: viewBox.w - dw, h: viewBox.h - dh };
+            scale = svgSize.w / viewBox.w;
+            svgImage.viewBox.x = viewBox.x;
+            svgImage.viewBox.y = viewBox.y;
+            svgImage.viewBox.width = viewBox.w;
+            svgImage.viewBox.height = viewBox.h;
+            svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+        }
+
+        function keyPan(evt) {
+            let dx = 0;
+            let dy = 0;
+            if ((evt.key == "ArrowUp") | (evt.key == "w")) {
+                dy += (-10 / scale);
+            }
+            else if ((evt.key == "ArrowDown") | (evt.key == "s")) {
+                dy += (10 / scale);
+            }
+            else if ((evt.key == "ArrowRight") | (evt.key == "d")) {
+                dx += (10 / scale);
+            }
+            else if ((evt.key == "ArrowLeft") | (evt.key == "a")) {
+                dx += (-10 / scale);
+            }
+            viewBox = { x: viewBox.x + dx, y: viewBox.y + dy, w: viewBox.w, h: viewBox.h };
+            svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+        }
+
+
+        function startPan(evt) {
+            isPanning = true;
+            startPoint = { x: evt.x, y: evt.y };
+        }
+
+
+        function dragPan(evt) {
+            if (isPanning) {
+                endPoint = { x: evt.x, y: evt.y };
+                let dx = (startPoint.x - endPoint.x) / scale;
+                let dy = (startPoint.y - endPoint.y) / scale;
+                let movedViewBox = { x: viewBox.x + dx, y: viewBox.y + dy, w: viewBox.w, h: viewBox.h };
+                svgImage.setAttribute('viewBox', `${movedViewBox.x} ${movedViewBox.y} ${movedViewBox.w} ${movedViewBox.h}`);
+            }
+        }
+
+        function endPan(evt) {
+            if (isPanning) {
+                endPoint = { x: evt.x, y: evt.y };
+                let dx = (startPoint.x - endPoint.x) / scale;
+                let dy = (startPoint.y - endPoint.y) / scale;
+                viewBox = { x: viewBox.x + dx, y: viewBox.y + dy, w: viewBox.w, h: viewBox.h };
+                svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+                isPanning = false;
+            }
+        }
+
+        function resetSVG(val) {
+            svgImage.setAttribute('viewBox', val);
+            viewBox = { x: 0, y: 0, w: svgImage.viewBox.baseVal.width, h: svgImage.viewBox.baseVal.height };
+        }
+
+        function showTooltip(evt) {
+            let checkbox = document.querySelector('#tooltipOff');
+            if (checkbox.checked == false) {
+                let elementID = evt.target.closest(".container").id;
+                let tooltip = document.getElementById("tooltip");
+                tooltip.innerHTML = entityObj[elementID].text;
+                tooltip.style.display = "block";
+                tooltip.style.left = evt.pageX + 10 + 'px';
+                tooltip.style.top = evt.pageY + 10 + 'px';
+            };
+        }
+
+        function hideTooltip() {
+            var tooltip = document.getElementById("tooltip");
+            tooltip.style.display = "none";
+        }
+
+        function changeColor() {
+            let selectedVariable = document.getElementById("select-variable").value;
+            if (selectedVariable == "none") {
+                document.querySelector(".body-container").setAttribute("class", "body-container");
+            } else if (selectedVariable == "type") {
+                document.querySelector(".body-container").setAttribute("class", "body-container color-by-company-type");
+            } else if (selectedVariable == "poi") {
+                document.querySelector(".body-container").setAttribute("class", "body-container color-by-poi");
+            } else if (selectedVariable == "address") {
+                document.querySelector(".body-container").setAttribute("class", "body-container color-by-corporate-address");
+            } else if (selectedVariable == "status") {
+                document.querySelector(".body-container").setAttribute("class", "body-container color-by-status");
+            }
+        }
+
+        function showConnections(evt) {
+            let elementID = evt.target.closest(".container").id;
+            let connected_lines = entityObj[elementID].lines;
+            let connected_owned_by = entityObj[elementID].owned_by;
+            let connected_owner_of = entityObj[elementID].owner_of;
+            let connected_labels = entityObj[elementID].labels;
+            for (chID of connected_lines) {
+                document.querySelector(`#${chID}`).classList.add("connected");
+            }
+            if (connected_labels.length > 0) {
+                for (chID of connected_labels) {
+                    document.querySelector(`#${chID}`).classList.add("connected");
+                }
+            }
+            if (connected_owned_by.length > 0) {
+                for (chID of connected_owned_by) {
+                    document.querySelector(`#${chID}`).classList.add("connected");
+                }
+            }
+            if (connected_owner_of.length > 0) {
+                for (chID of connected_owner_of) {
+                    document.querySelector(`#${chID}`).classList.add("connected");
+                }
+            }
+        }
+
+        function hideConnections() {
+            let elementList = document.querySelectorAll(".connected");
+            elementList.forEach((element) => {
+                element.classList.remove('connected');
+            });
+        }
+
+        function openHelp() {
+            let modal = document.getElementById("help");
+            modal.style.display = "block";
+        }
+
+        function closeHelpBtn() {
+            let modal = document.getElementById("help");
+            modal.style.display = "none";
+        }
+
+        function closeHelpClick(evt) {
+            let modal = document.getElementById("help");
+            if (evt.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        function closeHelpEsc(evt) {
+            let modal = document.getElementById("help");
+            if (evt.key == "Escape") {
+                modal.style.display = "none";
+            }
+        }
+
+        window.addEventListener("click", closeHelpClick);
+        window.addEventListener("keydown", closeHelpEsc);
+        window.addEventListener("keydown", keyPan);
+
+    </script>
+
+</body>
+
+</html>

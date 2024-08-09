@@ -8,41 +8,51 @@ body {
     box-sizing: inherit;
 }
 
-nav ul, footer ul {
-    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+nav ul,
+footer ul {
+    font-family: 'Helvetica', 'Arial', 'Sans-Serif';
     padding: 0px;
     list-style: none;
     font-weight: bold;
 }
-nav ul li, footer ul li {
+
+nav ul li,
+footer ul li {
     display: inline;
     margin-right: 20px;
 }
+
 a {
     text-decoration: none;
-    color: #999;
+    color: #666666;
 }
+
 a:hover {
     text-decoration: underline;
+    color: #999;
 }
+
 h1 {
     font-size: 3em;
-    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+    font-family: 'Helvetica', 'Arial', 'Sans-Serif';
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
+
 h2 {
     font-size: 1.5em;
-    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+    font-family: 'Helvetica', 'Arial', 'Sans-Serif';
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
+
 .h2__cv {
     box-shadow: 1rem 1rem 0 0 #999;
     border: 0.25rem solid black;
     padding: 1rem;
     margin-bottom: 2rem;
 }
+
 p {
     font-size: 1.5em;
     line-height: 1.4em;
@@ -50,14 +60,15 @@ p {
     margin-top: 0;
     margin-bottom: 1em;
 }
+
 footer {
     border-top: 1px solid #d5d5d5;
     font-size: .8em;
     margin-top: 1rem;
 }
 
-ul.posts { 
-    margin: 20px auto 40px; 
+ul.posts {
+    margin: 20px auto 40px;
     font-size: 1.5em;
 }
 
@@ -68,6 +79,11 @@ ul.posts li {
 .profile-pic {
     border-radius: 1.5rem;
     max-width: 30%;
+    object-fit: cover;
+}
+
+.profile-pic {
+    max-height: 75%;
     object-fit: cover;
 }
 
@@ -83,18 +99,47 @@ ul.posts li {
     padding: 1rem;
     margin-bottom: 1rem;
 }
+
 .cv {
     display: flex;
     flex-direction: column;
 }
+
 .cv__text {
     font-size: 1.5em;
     line-height: 1.4em;
     color: #333;
     margin-top: 0;
-    margin-bottom: 1em;
 }
 
 ul {
     list-style-type: square;
-  }
+    margin-top: .2em;
+}
+
+.cv__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.cv__left {
+    text-align: left;
+}
+
+.cv__right {
+    text-align: right;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+
+.research__card {
+    box-shadow: 1rem 1rem 0 0 #999;
+    border: 0.25rem solid black;
+    padding: 1rem;
+    cursor: pointer;
+}

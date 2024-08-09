@@ -82,8 +82,9 @@ ul.posts li {
     object-fit: cover;
 }
 
-.profile-pic {
-    max-height: 75%;
+.preview-pic {
+    max-width: 100%;
+    border: 2px sold black;
     object-fit: cover;
 }
 
@@ -141,5 +142,7 @@ ul {
     box-shadow: 1rem 1rem 0 0 #999;
     border: 0.25rem solid black;
     padding: 1rem;
+    margin-bottom: 2rem;
+    max-width: 50%;
     cursor: pointer;
 }

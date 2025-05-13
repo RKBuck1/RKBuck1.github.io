@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Financial Structures & Family Ties</title>
 </head>
 
 <style>
@@ -34,6 +34,8 @@
         padding: 5px;
         font-family: Arial, Helvetica, sans-serif;
         fill: black;
+        max-width: 30%;
+        z-index: 2;
     }
 
     .rectangle {
@@ -78,9 +80,16 @@
         white-space: normal;
     }
 
+    svg:has(.container:hover) .container:not(:hover) {
+        fill-opacity: 0.5;
+    }
+
     .container:hover .rectangle {
-        fill: #ec008c;
         stroke-width: 5;
+    }
+
+    .no-var .container:hover .rectangle{
+        fill: #ec008c;
     }
 
     .container:hover .text {
@@ -146,6 +155,7 @@
         height: 100vh;
         align-items: flex-start;
         box-shadow: 2px 0 2px 0 #dfdfdf;
+        overflow-y: auto;
         z-index: 1;
     }
 
@@ -157,6 +167,7 @@
     .legend {
         display: flex;
         justify-content: space-between;
+        margin-bottom: 1rem;
     }
 
     .legend-item {
@@ -216,9 +227,9 @@
         fill: #a6d854;
     }
 
-    .color-by-poi .poi--wyny {
+    /* .color-by-poi .poi--wyny {
         fill: #ffd92f;
-    }
+    } */
 
     .color-by-corporate-address .corporate-address--stamford {
         fill: #66c2a5;
@@ -324,10 +335,9 @@
     }
 
     #helpBt {
-        position: absolute;
+        flex-shrink: 0;
         display: inline-block;
         bottom: 0;
-        margin-bottom: 20px;
     }
 
     .zoom-icon circle {
@@ -379,13 +389,14 @@
 </style>
 
 <body>
-    <div class="body-container">
+    <div class="body-container color-by-status">
         <div class="sidebar">
             <div>
                 <p class="title">Financial Structures & Family Ties:</p>
                 <p class="subtitle">Disentangling Purdue Pharma's Corporate Ownership Structure and the Sackler
                     Family Wealth</p>
             </div>
+            <button id="helpBt" class="bt" onclick="openHelp();">More Information</button>
             <div class="button-collection">
                 <button id="zoomInBt" class="btGrid" type="button" title="Zoom In" onclick="zoomInClick();">
                     <svg id="zoomInIcon" class="zoom-icon" viewBox="0 0 25 25" preserveAspectRatio="xMidYMid meet">
@@ -423,162 +434,161 @@
             <div>
                 <label for="select-variable" class="subtitle">Color by variable:</label>
                 <select name="select-variable" id="select-variable" onchange="changeColor()">
-                    <option value="none">None</option>
+                    <option value="status">Bankruptcy status</option>
                     <option value="type">Company type</option>
                     <option value="poi">Place of incorporation</option>
                     <option value="address">Corporate address</option>
-                    <option value="status">Bankruptcy status</option>
+                    <option value="none">None</option>
                 </select>
             </div>
             <div id="company-type-legend" class="legend">
-                <p class="subtitle">Legend</p>
+                <p id="company_type" class="subtitle container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Company Type</p>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#66c2a5" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">Limited Partnership</span>
+                    <span id="limited_partner" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Limited Partnership</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#fc8d62" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;;">&ndash;</span>
-                    <span class="text">General Partnership</span>
+                    <span id="general_partner" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">General Partnership</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#8da0cb" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">Corporation</span>
+                    <span id="corporation" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Corporation</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#e78ac3" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">Limited Liability Company</span>
+                    <span id="llc" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Limited Liability Company</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#a6d854" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">Limited Company</span>
+                    <span id="limited_company" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Limited Company</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#ffd92f" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">Trust</span>
+                    <span id="trust" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Trust</span>
                 </div>
             </div>
 
             <div id="poi-legend" class="legend">
-                <p class="subtitle">Legend</p>
+                <p id="place_incorporation" class="subtitle container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Place of Incorporation</p>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#66c2a5" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">Delaware</span>
+                    <span id="delaware" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Delaware</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#fc8d62" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">New York</span>
+                    <span id="new_york" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">New York</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#8da0cb" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">British Virgin Islands</span>
+                    <span id="bvi" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">British Virgin Islands</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#e78ac3" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">Jersey (Channel Islands)</span>
+                    <span id="jersey" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Jersey (Channel Islands)</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#a6d854" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">Wyoming</span>
+                    <span id="wyoming" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Wyoming</span>
                 </div>
-                <div class="legend-item">
+                <!-- <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#ffd92f" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
                     <span class="text">Wyoming; New York</span>
-                </div>
+                </div> -->
             </div>
 
             <div id="corporate-address-legend" class="legend">
-                <p class="subtitle">Legend</p>
+                <p id="corporate_address" class="subtitle container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Corporate Address</p>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#66c2a5" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">One Stamford Forum, Stamford, CT, USA</span>
+                    <span id="one_stamford" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">One Stamford Forum, Stamford, CT, USA</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#fc8d62" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">498 Washington St, Coventry, RI, USA</span>
+                    <span id="coventry" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">498 Washington St, Coventry, RI, USA</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#8da0cb" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">North Bay Associates, Oklahoma City, USA</span>
+                    <span id="north_bay" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">North Bay Associates, Oklahoma City, USA</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#e78ac3" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">Zurich, CH</span>
+                    <span id="zurich" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Zurich, CH</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#FFFFFF" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">Unknown</span>
+                    <span id="unknown" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Unknown</span>
                 </div>
             </div>
 
             <div id="status-legend" class="legend">
-                <p class="subtitle">Legend</p>
+                <p id="bank_status" class="subtitle container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Bankruptcy Status</p>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#66c2a5" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">Debtor</span>
+                    <span id="debtor" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Debtor</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#fc8d62" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">Non-debtor</span>
+                    <span id="non_debtor" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Non-debtor</span>
                 </div>
             </div>
-            <button id="helpBt" class="bt" onclick="openHelp();">More info</button>
             <div id="help" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="closeHelpBtn();">&times;</span>
@@ -1012,7 +1022,7 @@
             <g id="data_llc" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
                 onmouseleave="hideTooltip(); hideConnections();">
                 <rect x="2200" y="650"
-                    class="rectangle company-type--llc poi--wyny corporate-address--unknown status--nondebtor"
+                    class="rectangle company-type--llc poi--wy corporate-address--unknown status--nondebtor"
                     width="200" height="100" rx="10" ry="10" />
                 <text class="text" x="2300" y="700" dominant-baseline="middle" text-anchor="middle">Data LLC</text>
             </g>
@@ -1075,7 +1085,7 @@
             <g id="rrs_trust_89_1b" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
                 onmouseleave="hideTooltip(); hideConnections();">
                 <rect x="2330" y="270"
-                    class="rectangle dashed company-type--trust poi--wyny corporate-address--unknown status--nondebtor"
+                    class="rectangle dashed company-type--trust poi--wy corporate-address--unknown status--nondebtor"
                     width="300" height="100" rx="10" ry="10"></rect>
                 <g transform="translate(2480,300)" dominant-baseline="middle" text-anchor="middle">
                     <text class="text" x="0" y="0">
@@ -1088,7 +1098,7 @@
             <g id="rrs_trust_89_1a" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
                 onmouseleave="hideTooltip(); hideConnections();">
                 <rect x="2330" y="70"
-                    class="rectangle dashed company-type--trust poi--wyny corporate-address--unknown status--nondebtor"
+                    class="rectangle dashed company-type--trust poi--wy corporate-address--unknown status--nondebtor"
                     width="300" height="100" rx="10" ry="10"></rect>
                 <g transform="translate(2480,100)" dominant-baseline="middle" text-anchor="middle">
                     <text class="text" x="0" y="0">
@@ -1101,7 +1111,7 @@
             <g id="rrs_trust_89_2b" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
                 onmouseleave="hideTooltip(); hideConnections();">
                 <rect x="2950" y="400"
-                    class="rectangle dashed company-type--trust poi--wyny corporate-address--unknown status--nondebtor"
+                    class="rectangle dashed company-type--trust poi--wy corporate-address--unknown status--nondebtor"
                     width="300" height="100" rx="10" ry="10"></rect>
                 <g transform="translate(3100,430)" dominant-baseline="middle" text-anchor="middle">
                     <text class="text" x="0" y="0">
@@ -1114,7 +1124,7 @@
             <g id="rrs_trust_89_2a" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
                 onmouseleave="hideTooltip(); hideConnections();">
                 <rect x="2950" y="200"
-                    class="rectangle dashed company-type--trust poi--wyny corporate-address--unknown status--nondebtor"
+                    class="rectangle dashed company-type--trust poi--wy corporate-address--unknown status--nondebtor"
                     width="300" height="100" rx="10" ry="10"></rect>
                 <g transform="translate(3100,230)" dominant-baseline="middle" text-anchor="middle">
                     <text class="text" x="0" y="0">
@@ -2193,6 +2203,91 @@
                 "owned_by": [],
                 "labels": ["t43"],
                 "text": "<b>Name:</b> Cornice Trust<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Wyoming<br><b>Trustees:</b> Leslie Schreyer and Jeffrey Robins, Norton Rose Fullbright<br><b>Status:</b> Non-debtor"
+            },
+            "bank_status": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+            },
+            "debtor": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+            },
+            "non_debtor": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "company_type": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+            },
+            "limited_partner": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "general_partner": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "corporation": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "llc": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "limited_company": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "trust": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "place_incorporation": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "delaware": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "new_york": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "bvi": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "jersey": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "wyoming": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "corporate_address": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "one_stamford": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "coventry": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "north_bay": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "zurich": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
+            },
+            "unknown": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+
             }
         }`
 
@@ -2331,7 +2426,7 @@
         function changeColor() {
             let selectedVariable = document.getElementById("select-variable").value;
             if (selectedVariable == "none") {
-                document.querySelector(".body-container").setAttribute("class", "body-container");
+                document.querySelector(".body-container").setAttribute("class", "body-container no-var");
             } else if (selectedVariable == "type") {
                 document.querySelector(".body-container").setAttribute("class", "body-container color-by-company-type");
             } else if (selectedVariable == "poi") {

@@ -34,7 +34,7 @@
         padding: 5px;
         font-family: Arial, Helvetica, sans-serif;
         fill: black;
-        max-width: 30%;
+        max-width: 40%;
         z-index: 2;
     }
 
@@ -184,71 +184,71 @@
     }
 
     .color-by-company-type .company-type--lp {
-        fill: #66c2a5;
+        fill: #009E73;
     }
 
     .color-by-company-type .company-type--gp {
-        fill: #fc8d62;
+        fill: #56B4E9;
     }
 
     .color-by-company-type .company-type--corp {
-        fill: #8da0cb;
+        fill: #E69F00;
     }
 
     .color-by-company-type .company-type--llc {
-        fill: #e78ac3;
+        fill: #0072B2;
     }
 
     .color-by-company-type .company-type--lc {
-        fill: #a6d854;
+        fill: #F0E442;
     }
 
     .color-by-company-type .company-type--trust {
-        fill: #ffd92f;
+        fill: #D55E00;
     }
 
     .color-by-poi .poi--delaware {
-        fill: #66c2a5;
+        fill: #bebada;
     }
 
     .color-by-poi .poi--ny {
-        fill: #fc8d62;
+        fill: #ffffb3;
     }
 
     .color-by-poi .poi--bvi {
-        fill: #8da0cb;
+        fill: #fb8072;
     }
 
     .color-by-poi .poi--jersey {
-        fill: #e78ac3;
+        fill: #fdb462;
     }
 
     .color-by-poi .poi--wy {
-        fill: #a6d854;
+        fill: #80b1d3;
     }
 
-    /* .color-by-poi .poi--wyny {
-        fill: #ffd92f;
-    } */
+    .color-by-poi .poi--wyny {
+        fill: #8dd3c7;
+    }
 
     .color-by-corporate-address .corporate-address--stamford {
-        fill: #66c2a5;
+        fill: #7fc97f;
     }
 
     .color-by-corporate-address .corporate-address--coventry {
-        fill: #fc8d62;
+        fill: #beaed4;
     }
 
     .color-by-corporate-address .corporate-address--oklahoma {
-        fill: #8da0cb;
+        fill: #fdc086;
     }
 
-    .color-by-corporate-address .corporate-address--zurich {
-        fill: #e78ac3;
+    .color-by-corporate-address .corporate-address--corp_serv {
+        fill: #ffff99;
     }
 
     .color-by-corporate-address .corporate-address--unknown {
-        fill: #FFFFFF;
+        fill: #b3b3b3;
     }
 
     .color-by-status .status--debtor {
@@ -432,11 +432,11 @@
                 Hide Tooltip
             </label>
             <div>
-                <label for="select-variable" class="subtitle">Color by variable:</label>
+                <label for="select-variable" class="subtitle">Colour by variable:</label>
                 <select name="select-variable" id="select-variable" onchange="changeColor()">
                     <option value="status">Bankruptcy status</option>
                     <option value="type">Company type</option>
-                    <option value="poi">Place of incorporation</option>
+                    <option value="poi">Place of incorporation/organisation</option>
                     <option value="address">Corporate address</option>
                     <option value="none">None</option>
                 </select>
@@ -445,42 +445,42 @@
                 <p id="company_type" class="subtitle container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Company Type</p>
                 <div class="legend-item">
                     <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#66c2a5" stroke="black" />
-                    </svg>
-                    <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="limited_partner" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Limited Partnership</span>
-                </div>
-                <div class="legend-item">
-                    <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#fc8d62" stroke="black" />
-                    </svg>
-                    <span class="text" style="margin-right: 5px;;">&ndash;</span>
-                    <span id="general_partner" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">General Partnership</span>
-                </div>
-                <div class="legend-item">
-                    <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#8da0cb" stroke="black" />
+                        <rect width="32" height="16" fill="#E69F00" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
                     <span id="corporation" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Corporation</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#e78ac3" stroke="black" />
+                        <rect width="32" height="16" fill="#56B4E9" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;;">&ndash;</span>
+                    <span id="general_partner" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">General Partnership</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#009E73" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span id="limited_partner" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Limited Partnership</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#F0E442" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span id="limited_company" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Limited Company (UK)</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#0072B2" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
                     <span id="llc" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Limited Liability Company</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#a6d854" stroke="black" />
-                    </svg>
-                    <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="limited_company" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Limited Company</span>
-                </div>
-                <div class="legend-item">
-                    <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#ffd92f" stroke="black" />
+                        <rect width="32" height="16" fill="#D55E00" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
                     <span id="trust" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Trust</span>
@@ -488,84 +488,84 @@
             </div>
 
             <div id="poi-legend" class="legend">
-                <p id="place_incorporation" class="subtitle container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Place of Incorporation</p>
+                <p id="place_incorporation" class="subtitle container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Place of Incorporation/Organisation</p>
                 <div class="legend-item">
                     <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#66c2a5" stroke="black" />
+                        <rect width="32" height="16" fill="#bebada" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
                     <span id="delaware" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Delaware</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#fc8d62" stroke="black" />
+                        <rect width="32" height="16" fill="#ffffb3" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
                     <span id="new_york" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">New York</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#8da0cb" stroke="black" />
+                        <rect width="32" height="16" fill="#80b1d3" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span id="wyoming" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Wyoming</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#8dd3c7" stroke="black" />
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span id="wyoming_ny" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Wyoming; New York</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <rect width="32" height="16" fill="#fb8072" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
                     <span id="bvi" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">British Virgin Islands</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#e78ac3" stroke="black" />
+                        <rect width="32" height="16" fill="#fdb462" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="jersey" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Jersey (Channel Islands)</span>
+                    <span id="jersey" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Jersey (Channel Islands, UK)</span>
                 </div>
-                <div class="legend-item">
-                    <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#a6d854" stroke="black" />
-                    </svg>
-                    <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="wyoming" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Wyoming</span>
-                </div>
-                <!-- <div class="legend-item">
-                    <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#ffd92f" stroke="black" />
-                    </svg>
-                    <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span class="text">Wyoming; New York</span>
-                </div> -->
             </div>
 
             <div id="corporate-address-legend" class="legend">
                 <p id="corporate_address" class="subtitle container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Corporate Address</p>
                 <div class="legend-item">
                     <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#66c2a5" stroke="black" />
+                        <rect width="32" height="16" fill="#7fc97f" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
                     <span id="one_stamford" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">One Stamford Forum, Stamford, CT, USA</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#fc8d62" stroke="black" />
+                        <rect width="32" height="16" fill="#beaed4" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
                     <span id="coventry" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">498 Washington St, Coventry, RI, USA</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#8da0cb" stroke="black" />
+                        <rect width="32" height="16" fill="#fdc086" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="north_bay" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">North Bay Associates, Oklahoma City, USA</span>
+                    <span id="north_bay" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">North Bay Associates, Oklahoma City, OK, USA</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#e78ac3" stroke="black" />
+                        <rect width="32" height="16" fill="#ffff99" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="zurich" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Zurich, CH</span>
+                    <span id="corp_serv" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Corporation Service Company, Wilmington, DE, USA</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
-                        <rect width="32" height="16" fill="#FFFFFF" stroke="black" />
+                        <rect width="32" height="16" fill="#b3b3b3" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
                     <span id="unknown" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Unknown</span>
@@ -592,7 +592,7 @@
             <div id="help" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="closeHelpBtn();">&times;</span>
-                    <p class="title">How to use this visualization</p>
+                    <p class="title">How to use this visualisation</p>
                     <p class="text">This is an interactive diagram of the Purdue Pharma LP ownership structure at the
                         time of the company's bankruptcy filing in September 2019. Rectangles represent different
                         corporate and financial entities that either are subsidiaries or have some ownership stake in
@@ -609,15 +609,14 @@
                         and extent using the refresh button next to the zoom buttons in the sidebar. Hover over entities
                         with a mouse to see their immediate parent or subsidiary companies in bold. The tooltip (which
                         can be turned off by toggling the radio button in the sidebar) shows information such as the
-                        company type, the place of incorporation, corporate address, nature of business, status in the
-                        Purdue bankruptcy filing, governing law, trustees, as well as assets and liabilities. Color the
-                        entities by selecting among company type, place of incorporation, corporate address, and
+                        company type, the place of incorporation/organisation, corporate address, nature of business, status in the
+                        Purdue bankruptcy filing, governing law, trustees, as well as assets and liabilities. Colour the
+                        entities by selecting among company type, place of incorporation/organisation, corporate address, and
                         bankruptcy status in the dropdown menu.
                     </p>
                     <p class="" text>
-                        For the best experience, we recommend exploring this visualization on a laptop or desktop
-                        computer rather than on a mobile device. For more information, please read the accompanying text
-                        <span style="color:red;">LINK TO FINANCE & SPACE TEXT</span>
+                        For the best experience, we recommend exploring this visualisation on a laptop or desktop
+                        computer rather than on a mobile device. For more information, please read <a href="https://rkbuck1.github.io/finviz/">the accompanying text</a>.
                     </p>
                 </div>
             </div>
@@ -629,7 +628,7 @@
 
             <defs>
                 <marker id="triangle" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="strokeWidth" markerWidth="8"
-                    markerHeight="6" orient="auto">
+                    markerHeight="6" orient="auto-start-reverse">
                     <path d="M 0 0 L 10 5 L 0 10 z" />
                 </marker>
             </defs>
@@ -923,7 +922,7 @@
             <g id="beacon" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
                 onmouseleave="hideTooltip(); hideConnections();">
                 <rect x="300" y="850"
-                    class="rectangle company-type--gp poi--delaware corporate-address--zurich status--nondebtor"
+                    class="rectangle company-type--gp poi--delaware corporate-address--corp_serv status--nondebtor"
                     width="200" height="100" rx="10" ry="10" />
                 <text class="text" x="400" y="900" dominant-baseline="middle" text-anchor="middle">Beacon Company</text>
             </g>
@@ -1022,7 +1021,7 @@
             <g id="data_llc" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
                 onmouseleave="hideTooltip(); hideConnections();">
                 <rect x="2200" y="650"
-                    class="rectangle company-type--llc poi--wy corporate-address--unknown status--nondebtor"
+                    class="rectangle company-type--llc poi--wyny corporate-address--unknown status--nondebtor"
                     width="200" height="100" rx="10" ry="10" />
                 <text class="text" x="2300" y="700" dominant-baseline="middle" text-anchor="middle">Data LLC</text>
             </g>
@@ -1085,7 +1084,7 @@
             <g id="rrs_trust_89_1b" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
                 onmouseleave="hideTooltip(); hideConnections();">
                 <rect x="2330" y="270"
-                    class="rectangle dashed company-type--trust poi--wy corporate-address--unknown status--nondebtor"
+                    class="rectangle dashed company-type--trust poi--wyny corporate-address--unknown status--nondebtor"
                     width="300" height="100" rx="10" ry="10"></rect>
                 <g transform="translate(2480,300)" dominant-baseline="middle" text-anchor="middle">
                     <text class="text" x="0" y="0">
@@ -1098,7 +1097,7 @@
             <g id="rrs_trust_89_1a" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
                 onmouseleave="hideTooltip(); hideConnections();">
                 <rect x="2330" y="70"
-                    class="rectangle dashed company-type--trust poi--wy corporate-address--unknown status--nondebtor"
+                    class="rectangle dashed company-type--trust poi--wyny corporate-address--unknown status--nondebtor"
                     width="300" height="100" rx="10" ry="10"></rect>
                 <g transform="translate(2480,100)" dominant-baseline="middle" text-anchor="middle">
                     <text class="text" x="0" y="0">
@@ -1111,7 +1110,7 @@
             <g id="rrs_trust_89_2b" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
                 onmouseleave="hideTooltip(); hideConnections();">
                 <rect x="2950" y="400"
-                    class="rectangle dashed company-type--trust poi--wy corporate-address--unknown status--nondebtor"
+                    class="rectangle dashed company-type--trust poi--wyny corporate-address--unknown status--nondebtor"
                     width="300" height="100" rx="10" ry="10"></rect>
                 <g transform="translate(3100,430)" dominant-baseline="middle" text-anchor="middle">
                     <text class="text" x="0" y="0">
@@ -1124,7 +1123,7 @@
             <g id="rrs_trust_89_2a" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
                 onmouseleave="hideTooltip(); hideConnections();">
                 <rect x="2950" y="200"
-                    class="rectangle dashed company-type--trust poi--wy corporate-address--unknown status--nondebtor"
+                    class="rectangle dashed company-type--trust poi--wyny corporate-address--unknown status--nondebtor"
                     width="300" height="100" rx="10" ry="10"></rect>
                 <g transform="translate(3100,230)" dominant-baseline="middle" text-anchor="middle">
                     <text class="text" x="0" y="0">
@@ -1245,7 +1244,7 @@
             <line id="l106" class="line" x1="350" y1="600" x2="250" y2="600" />
             <line id="l107" class="line" x1="250" y1="600" x2="250" y2="650" marker-end="url(#triangle)" />
             <line id="l108" class="line" x1="450" y1="550" x2="450" y2="850" marker-end="url(#triangle)" />
-            <line id="l109" class="line dashed" x1="400" y1="350" x2="400" y2="450" marker-end="url(#triangle)" />
+            <line id="l109" class="line dashed" x1="400" y1="350" x2="400" y2="450" marker-start="url(#triangle)" />
             <line id="l110" class="line" x1="800" y1="1300" x2="750" y2="1300" marker-end="url(#triangle)" />
             <line id="l111" class="line" x1="800" y1="1300" x2="800" y2="1200" />
             <line id="l112" class="line" x1="800" y1="1200" x2="950" y2="1200" />
@@ -1265,8 +1264,8 @@
             <line id="l126" class="line" x1="2150" y1="1050" x2="2300" y2="1050" />
             <line id="l127" class="line" x1="2300" y1="1050" x2="2350" y2="1050" />
             <line id="l128" class="line" x1="2350" y1="1050" x2="2600" y2="1050" />
-            <line id="l129" class="line dashed" x1="3100" y1="700" x2="2700" y2="700" marker-end="url(#triangle)" />
-            <line id="l130" class="line dashed" x1="3100" y1="500" x2="3100" y2="700" />
+            <line id="l129" class="line dashed" x1="3100" y1="700" x2="2700" y2="700"/>
+            <line id="l130" class="line dashed" x1="3100" y1="500" x2="3100" y2="700" marker-start="url(#triangle)" />
             <line id="l131" class="line dashed" x1="3100" y1="300" x2="3100" y2="400" />
             <line id="l132" class="line" x1="2750" y1="550" x2="2750" y2="600" />
             <line id="l133" class="line" x1="2750" y1="600" x2="2650" y2="600" />
@@ -1274,9 +1273,9 @@
             <line id="l135" class="line" x1="2600" y1="650" x2="2600" y2="600" />
             <line id="l136" class="line" x1="2600" y1="600" x2="2480" y2="600" />
             <line id="l137" class="line dashed" x1="2480" y1="170" x2="2480" y2="270" />
-            <line id="l138" class="line dashed" x1="2480" y1="600" x2="2480" y2="370" />
+            <line id="l138" class="line dashed" x1="2480" y1="600" x2="2480" y2="370" marker-end="url(#triangle)"/>
             <line id="l139" class="line dashed" x1="2480" y1="600" x2="2480" y2="700" />
-            <line id="l140" class="line dashed" x1="2480" y1="700" x2="2400" y2="700" marker-end="url(#triangle)" />
+            <line id="l140" class="line dashed" x1="2480" y1="700" x2="2400" y2="700"/>
             <line id="l141" class="line" x1="2450" y1="600" x2="2480" y2="600" />
             <line id="l142" class="line" x1="2450" y1="600" x2="2300" y2="600" />
             <line id="l143" class="line" x1="2300" y1="600" x2="2300" y2="650" />
@@ -1285,9 +1284,9 @@
             <line id="l146" class="line" x1="2150" y1="500" x2="2150" y2="550" />
             <line id="l147" class="line" x1="2150" y1="550" x2="2150" y2="700" />
             <line id="l148" class="line" x1="2150" y1="700" x2="2200" y2="700" marker-end="url(#triangle)" />
-            <line id="l149" class="line dashed" x1="1750" y1="550" x2="1750" y2="350" />
+            <line id="l149" class="line dashed" x1="1750" y1="550" x2="1750" y2="350" marker-end="url(#triangle)"/>
             <line id="l150" class="line dashed" x1="1750" y1="550" x2="1750" y2="700" />
-            <line id="l151" class="line dashed" x1="1750" y1="700" x2="1900" y2="700" marker-end="url(#triangle)" />
+            <line id="l151" class="line dashed" x1="1750" y1="700" x2="1900" y2="700"/>
             <line id="l152" class="line" x1="2150" y1="550" x2="1750" y2="550" />
             <line id="l153" class="line" x1="750" y1="550" x2="1750" y2="550" />
             <line id="l154" class="line" x1="750" y1="550" x2="750" y2="650" marker-end="url(#triangle)" />
@@ -1482,7 +1481,7 @@
                 "owner_of": ["purdue_puerto_rico"],
                 "owned_by": ["purdue_pharma_lp"],
                 "labels": ["t1","t3"],
-                "text": "<b>Name:</b> Ophir Green Corp<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> British Virgin Islands<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Debtor<br><b>Assets:</b> $0<br><b>Liabilities:</b> $0"
+                "text": "<b>Name:</b> Ophir Green Corp<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation/Organisation:</b> British Virgin Islands<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Debtor<br><b>Assets:</b> $0<br><b>Liabilities:</b> $0"
             },
             "seven_seas": {
                 "name": "Seven Seas Hill Corp",
@@ -1497,7 +1496,7 @@
                 "owner_of": ["purdue_puerto_rico"],
                 "owned_by": ["purdue_pharma_lp"],
                 "labels": ["t2","t3"],
-                "text": "<b>Name:</b> Seven Seas Hill Corp<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> British Virgin Islands<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Debtor<br><b>Assets:</b> $0<br><b>Liabilities:</b> $0"
+                "text": "<b>Name:</b> Seven Seas Hill Corp<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation/Organisation:</b> British Virgin Islands<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Debtor<br><b>Assets:</b> $0<br><b>Liabilities:</b> $0"
             },
             "nyatt_cove": {
                 "name": "Nyatt Cove Lifescience Inc",
@@ -1512,7 +1511,7 @@
                 "owner_of": [],
                 "owned_by": ["purdue_pharma_lp"],
                 "labels": ["t3"],
-                "text": "<b>Name:</b> Nyatt Cove Lifescience Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $10,192,490<br><b>Liabilities:</b> $0"
+                "text": "<b>Name:</b> Nyatt Cove Lifescience Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $10,192,490<br><b>Liabilities:</b> $0"
             },
             "purdue_puerto_rico": {
                 "name": "Purdue Pharma of Puerto Rico",
@@ -1527,7 +1526,7 @@
                 "owner_of": [],
                 "owned_by": ["ophir","seven_seas"],
                 "labels": ["t1","t2"],
-                "text": "<b>Name:</b> Purdue Pharma of Puerto Rico<br><b>Company Type:</b> General Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $43,223<br><b>Liabilities:</b> $2,651"
+                "text": "<b>Name:</b> Purdue Pharma of Puerto Rico<br><b>Company Type:</b> General Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $43,223<br><b>Liabilities:</b> $2,651"
             },
             "purdue_neuroscience": {
                 "name": "Purdue Neuroscience Company",
@@ -1542,7 +1541,7 @@
                 "owner_of": [],
                 "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
                 "labels": ["t4","t5"],
-                "text": "<b>Name:</b> Purdue Neuroscience Company<br><b>Company Type:</b> General Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Inactive<br><b>Status:</b> Debtor<br><b>Assets:</b> $6,186,281<br><b>Liabilities:</b> $0"
+                "text": "<b>Name:</b> Purdue Neuroscience Company<br><b>Company Type:</b> General Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Inactive<br><b>Status:</b> Debtor<br><b>Assets:</b> $6,186,281<br><b>Liabilities:</b> $0"
             },
             "purdue_pharma_lp": {
                 "name": "Purdue Pharma LP",
@@ -1557,7 +1556,7 @@
                 "owner_of": ["ophir", "seven_seas", "nyatt_cove", "purdue_neuroscience", "adlon", "purdue_transdermal", "ibrium", "purdue_pharma_products", "greenfield_bioventures", "purdue_pharma_manufacturing", "purdue_pharmaceuticals_lp", "avrio_health", "rhodes_associates"],
                 "owned_by": ["purdue_pharma_inc", "purdue_research"],
                 "labels": ["t3","t4","t6","t18","t19"],
-                "text": "<b>Name:</b> Purdue Pharma LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $1,543,275,938<br><b>Liabilities:</b> $15,877,593"
+                "text": "<b>Name:</b> Purdue Pharma LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $1,543,275,938<br><b>Liabilities:</b> $15,877,593"
             },
             "adlon": {
                 "name": "Adlon Therapeutics LP",
@@ -1572,7 +1571,7 @@
                 "owner_of": [],
                 "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
                 "labels": ["t6","t7"],
-                "text": "<b>Name:</b> Adlon Therapeutics LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $3,755,544<br><b>Liabilities:</b> $2,066,602"
+                "text": "<b>Name:</b> Adlon Therapeutics LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $3,755,544<br><b>Liabilities:</b> $2,066,602"
             },
             "purdue_transdermal": {
                 "name": "Purdue Transdermal Technologies LP",
@@ -1587,7 +1586,7 @@
                 "owner_of": [],
                 "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
                 "labels": ["t6","t7"],
-                "text": "<b>Name:</b> Purdue Transdermal Technologies LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $7,573,074<br><b>Liabilities:</b> $36,512"
+                "text": "<b>Name:</b> Purdue Transdermal Technologies LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $7,573,074<br><b>Liabilities:</b> $36,512"
             },
             "ibrium": {
                 "name": "Ibrium Therapeutics LP",
@@ -1602,7 +1601,7 @@
                 "owner_of": [],
                 "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
                 "labels": ["t6","t7"],
-                "text": "<b>Name:</b> Ibrium Therapeutics LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $1,227,633<br><b>Liabilities:</b> $753,345"
+                "text": "<b>Name:</b> Ibrium Therapeutics LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $1,227,633<br><b>Liabilities:</b> $753,345"
             },
             "purdue_pharma_products": {
                 "name": "Purdue Pharmaceutical Products LP",
@@ -1617,7 +1616,7 @@
                 "owner_of": [],
                 "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
                 "labels": ["t6","t7"],
-                "text": "<b>Name:</b> Purdue Pharmaceutical Products LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $241,412<br><b>Liabilities:</b> $1,120"
+                "text": "<b>Name:</b> Purdue Pharmaceutical Products LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $241,412<br><b>Liabilities:</b> $1,120"
             },
             "greenfield_bioventures": {
                 "name": "Greenfield BioVentures LP",
@@ -1632,7 +1631,7 @@
                 "owner_of": [],
                 "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
                 "labels": ["t6","t7"],
-                "text": "<b>Name:</b> Greenfield BioVentures LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $0<br><b>Liabilities:</b> $252,038"
+                "text": "<b>Name:</b> Greenfield BioVentures LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $0<br><b>Liabilities:</b> $252,038"
             },
             "purdue_pharma_manufacturing": {
                 "name": "Purdue Pharma Manufactoring LP",
@@ -1647,7 +1646,7 @@
                 "owner_of": [],
                 "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
                 "labels": ["t6","t7"],
-                "text": "<b>Name:</b> Purdue Pharma Manufactoring LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $11,721,721<br><b>Liabilities:</b> $1,218,155"
+                "text": "<b>Name:</b> Purdue Pharma Manufactoring LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $11,721,721<br><b>Liabilities:</b> $1,218,155"
             },
             "purdue_pharmaceuticals_lp": {
                 "name": "Purdue Pharmaceuticals LP",
@@ -1662,7 +1661,7 @@
                 "owner_of": [],
                 "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
                 "labels": ["t6","t7"],
-                "text": "<b>Name:</b> Purdue Pharmaceuticals LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $82,673,323<br><b>Liabilities:</b> $1,590,320"
+                "text": "<b>Name:</b> Purdue Pharmaceuticals LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $82,673,323<br><b>Liabilities:</b> $1,590,320"
             },
             "avrio_health": {
                 "name": "Avrio Health LP (formerly Purdue Products LP)",
@@ -1677,7 +1676,7 @@
                 "owner_of": [],
                 "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
                 "labels": ["t6","t7"],
-                "text": "<b>Name:</b> Avrio Health LP (formerly Purdue Products LP)<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $17,883,864<br><b>Liabilities:</b> $2,608,070"
+                "text": "<b>Name:</b> Avrio Health LP (formerly Purdue Products LP)<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $17,883,864<br><b>Liabilities:</b> $2,608,070"
             },
             "rhodes_associates": {
                 "name": "Rhodes Associates LP",
@@ -1692,7 +1691,7 @@
                 "owner_of": ["paul_land", "button_land", "quidnick_land", "rhodes_pharmaceuticals", "rhodes_technologies"],
                 "owned_by": ["purdue_pharma_lp", "purdue_pharma_inc"],
                 "labels": ["t6","t7","t8","t9","t14"],
-                "text": "<b>Name:</b> Rhodes Associates LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Debtor<br><b>Assets:</b> $0<br><b>Liabilities:</b> $0"
+                "text": "<b>Name:</b> Rhodes Associates LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Debtor<br><b>Assets:</b> $0<br><b>Liabilities:</b> $0"
             },
             "rhodes_technologies": {
                 "name": "Rhodes Technologies",
@@ -1707,7 +1706,7 @@
                 "owner_of": ["udf", "svc_pharma_inc"],
                 "owned_by": ["purdue_pharma_inc", "rhodes_associates"],
                 "labels": ["t11","t14","t15","t16"],
-                "text": "<b>Name:</b> Rhodes Technologies<br><b>Company Type:</b> General Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $96,843,680<br><b>Liabilities:</b> $1,420,136"
+                "text": "<b>Name:</b> Rhodes Technologies<br><b>Company Type:</b> General Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $96,843,680<br><b>Liabilities:</b> $1,420,136"
             },
             "rhodes_pharmaceuticals": {
                 "name": "Rhodes Pharmaceuticals LP",
@@ -1722,7 +1721,7 @@
                 "owner_of": [],
                 "owned_by": ["purdue_pharma_inc", "rhodes_associates"],
                 "labels": ["t14","t15"],
-                "text": "<b>Name:</b> Rhodes Pharmaceuticals LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $124,398,593<br><b>Liabilities:</b> $1,723,312"
+                "text": "<b>Name:</b> Rhodes Pharmaceuticals LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $124,398,593<br><b>Liabilities:</b> $1,723,312"
             },
             "udf": {
                 "name": "UDF LP",
@@ -1737,7 +1736,7 @@
                 "owner_of": ["button_land", "quidnick_land", "svc_pharma_lp"],
                 "owned_by": ["purdue_pharma_inc", "rhodes_technologies"],
                 "labels": ["t10","t13","t16","t17"],
-                "text": "<b>Name:</b> UDF LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $0<br><b>Liabilities:</b> $0"
+                "text": "<b>Name:</b> UDF LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $0<br><b>Liabilities:</b> $0"
             },
             "paul_land": {
                 "name": "Paul Land Inc",
@@ -1752,7 +1751,7 @@
                 "owner_of": [],
                 "owned_by": ["rhodes_associates"],
                 "labels": ["t8"],
-                "text": "<b>Name:</b> Paul Land Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> New York<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $2,650<br><b>Liabilities:</b> $0"
+                "text": "<b>Name:</b> Paul Land Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation/Organisation:</b> New York<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $2,650<br><b>Liabilities:</b> $0"
             },
             "button_land": {
                 "name": "Button Land LP",
@@ -1767,7 +1766,7 @@
                 "owner_of": [],
                 "owned_by": ["rhodes_associates", "udf"],
                 "labels": ["t9","t10"],
-                "text": "<b>Name:</b> Button Land LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Real Estate<br><b>Status:</b> Debtor<br><b>Assets:</b> $49,100<br><b>Liabilities:</b> $0"
+                "text": "<b>Name:</b> Button Land LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Real Estate<br><b>Status:</b> Debtor<br><b>Assets:</b> $49,100<br><b>Liabilities:</b> $0"
             },
             "quidnick_land": {
                 "name": "Quidnick Land LP",
@@ -1782,7 +1781,7 @@
                 "owner_of": [],
                 "owned_by": ["rhodes_associates", "udf"],
                 "labels": ["t9","t10"],
-                "text": "<b>Name:</b> Quidnick Land LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Real Estate<br><b>Status:</b> Debtor<br><b>Assets:</b> $355,100<br><b>Liabilities:</b> $0"
+                "text": "<b>Name:</b> Quidnick Land LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Real Estate<br><b>Status:</b> Debtor<br><b>Assets:</b> $355,100<br><b>Liabilities:</b> $0"
             },
             "svc_pharma_inc": {
                 "name": "SVC Pharma Inc",
@@ -1797,7 +1796,7 @@
                 "owner_of": ["svc_pharma_lp"],
                 "owned_by": ["rhodes_technologies"],
                 "labels": ["t11"],
-                "text": "<b>Name:</b> SVC Pharma Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Debtor<br><b>Assets:</b> $51,186<br><b>Liabilities:</b> $0"
+                "text": "<b>Name:</b> SVC Pharma Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Debtor<br><b>Assets:</b> $51,186<br><b>Liabilities:</b> $0"
             },
             "svc_pharma_lp": {
                 "name": "SVC Pharma LP",
@@ -1812,7 +1811,7 @@
                 "owner_of": [],
                 "owned_by": ["svc_pharma_inc", "udf"],
                 "labels": ["t12","t13"],
-                "text": "<b>Name:</b> SVC Pharma LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $3,498,725<br><b>Liabilities:</b> $4,502"
+                "text": "<b>Name:</b> SVC Pharma LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> 498 Washington St, Coventry, RI<br><b>Nature of Business:</b> Non-operating Company<br><b>Status:</b> Debtor<br><b>Assets:</b> $3,498,725<br><b>Liabilities:</b> $4,502"
             },
             "purdue_pharma_inc": {
                 "name": "Purdue Pharma Inc",
@@ -1827,7 +1826,7 @@
                 "owner_of": ["purdue_neuroscience", "adlon", "purdue_transdermal", "ibrium", "purdue_pharma_products", "greenfield_bioventures", "purdue_pharma_manufacturing", "purdue_pharmaceuticals_lp", "avrio_health",  "rhodes_associates", "rhodes_technologies", "rhodes_pharmaceuticals", "udf", "purdue_pharma_lp", "purdue_research"],
                 "owned_by": ["banela", "linarite_holdings", "perthlite_holdings"],
                 "labels": ["t5","t7","t15","t17","t19","t20","t37","t38","t39"],
-                "text": "<b>Name:</b> Purdue Pharma Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> New York<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Debtor<br><b>Assets:</b> $1,582,270<br><b>Liabilities:</b> $2,344"
+                "text": "<b>Name:</b> Purdue Pharma Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation/Organisation:</b> New York<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Debtor<br><b>Assets:</b> $1,582,270<br><b>Liabilities:</b> $2,344"
             },
             "purdue_research": {
                 "name": "Purdue Research Associates LP (formerly Purdue Holdings LP)",
@@ -1842,7 +1841,7 @@
                 "owner_of": ["purdue_pharma_lp"],
                 "owned_by": ["plp_associates_lp", "plp_associates_inc", "br_holdings_inc", "purdue_pharma_inc"],
                 "labels": ["t18","t20","t21","t22","t23"],
-                "text": "<b>Name:</b> Purdue Research Associates LP (formerly Purdue Holdings LP)<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+                "text": "<b>Name:</b> Purdue Research Associates LP (formerly Purdue Holdings LP)<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
             "plp_associates_lp": {
                 "name": "PLP Associates Holdings LP",
@@ -1857,7 +1856,7 @@
                 "owner_of": ["purdue_research"],
                 "owned_by": ["plp_associates_inc", "br_holdings_lp"],
                 "labels": ["t23","t24","t25"],
-                "text": "<b>Name:</b> PLP Associates Holdings LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+                "text": "<b>Name:</b> PLP Associates Holdings LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
             "plp_associates_inc": {
                 "name": "PLP Associates Holdings Inc",
@@ -1872,7 +1871,7 @@
                 "owner_of": ["plp_associates_lp", "purdue_research"],
                 "owned_by": ["banela", "linarite_holdings", "perthlite_holdings"],
                 "labels": ["t22","t24","t37","t38","t39"],
-                "text": "<b>Name:</b> PLP Associates Holdings Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> New York<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+                "text": "<b>Name:</b> PLP Associates Holdings Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation/Organisation:</b> New York<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
             "br_holdings_inc": {
                 "name": "BR Holdings Associates Inc",
@@ -1887,7 +1886,7 @@
                 "owner_of": ["purdue_research", "br_holdings_lp"],
                 "owned_by": [],
                 "labels": ["t21","t28"],
-                "text": "<b>Name:</b> BR Holdings Associates Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> New York<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+                "text": "<b>Name:</b> BR Holdings Associates Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation/Organisation:</b> New York<br><b>Corporate Address:</b> One Stamford Forum, Stamford, CT<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
             "br_holdings_lp": {
                 "name": "BR Holdings Associates LP",
@@ -1902,13 +1901,13 @@
                 "owner_of": ["plp_associates_lp"],
                 "owned_by": ["beacon", "rosebay_medical_lp", "br_holdings_inc"],
                 "labels": ["t25","t26","t27","t28"],
-                "text": "<b>Name:</b> BR Holdings Associates LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+                "text": "<b>Name:</b> BR Holdings Associates LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
             "beacon": {
                 "name": "Beacon Company",
                 "type": "General Partnership",
                 "poi": "Delaware",
-                "address": "Zurich, Switzerland",
+                "address": "Corporation Service Company, Wilmington, DE, USA",
                 "business": "Unknown",
                 "status": "Non-debtor",
                 "assests": "Unknown",
@@ -1917,7 +1916,7 @@
                 "owner_of": ["br_holdings_lp"],
                 "owned_by": ["heatheridge", "stanhope_gate"],
                 "labels": ["t26","t29","t33"],
-                "text": "<b>Name:</b> Beacon Company<br><b>Company Type:</b> General Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> Zurich, Switzerland<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+                "text": "<b>Name:</b> Beacon Company<br><b>Company Type:</b> General Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> Corporation Service Company, Wilmington, DE, USA<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
             "rosebay_medical_lp": {
                 "name": "Rosebay Medical LP",
@@ -1932,7 +1931,7 @@
                 "owner_of": ["br_holdings_lp"],
                 "owned_by": ["rosebay_medical_inc", "trust_1974"],
                 "labels": ["t27","t30","t31"],
-                "text": "<b>Name:</b> Rosebay Medical LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> North Bay Associates, Oklahoma City, OK<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+                "text": "<b>Name:</b> Rosebay Medical LP<br><b>Company Type:</b> Limited Partnership<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> North Bay Associates, Oklahoma City, OK<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
             "stanhope_gate": {
                 "name": "Stanhope Gate Corp",
@@ -1947,12 +1946,12 @@
                 "owner_of": ["beacon"],
                 "owned_by": ["heatheridge"],
                 "labels": ["t29","t32"],
-                "text": "<b>Name:</b> Stanhope Gate Corp<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> British Virgin Islands<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+                "text": "<b>Name:</b> Stanhope Gate Corp<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation/Organisation:</b> British Virgin Islands<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
             "heatheridge": {
                 "name": "Heatherridge Trust Company Limited",
-                "type": "Limited Company",
-                "poi": "Jersey (Channel Islands)",
+                "type": "Limited Company (UK)",
+                "poi": "Jersey (Channel Islands, UK)",
                 "address": "Unknown",
                 "business": "Unknown",
                 "status": "Non-debtor",
@@ -1962,7 +1961,7 @@
                 "owner_of": ["stanhope_gate", "beacon"],
                 "owned_by": ["beacon_trust"],
                 "labels": ["t32","t33"],
-                "text": "<b>Name:</b> Heatherridge Trust Company Limited<br><b>Company Type:</b> Limited Company<br><b>Place of Incorporation:</b> Jersey (Channel Islands)<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+                "text": "<b>Name:</b> Heatherridge Trust Company Limited<br><b>Company Type:</b> Limited Company (UK)<br><b>Place of Incorporation/Organisation:</b> Jersey (Channel Islands, UK)<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
             "rosebay_medical_inc": {
                 "name": "Rosebay Medical Inc",
@@ -1977,7 +1976,7 @@
                 "owner_of": ["rosebay_medical_lp"],
                 "owned_by": ["data_llc","cornice_fiduciary"],
                 "labels": ["t30","t41","t42"],
-                "text": "<b>Name:</b> Rosebay Medical Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+                "text": "<b>Name:</b> Rosebay Medical Inc<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
             "banela": {
                 "name": "Banela Corporation",
@@ -1992,7 +1991,7 @@
                 "owner_of": ["purdue_pharma_inc", "plp_associates_inc"],
                 "owned_by": ["millborne"],
                 "labels": ["t34","t37"],
-                "text": "<b>Name:</b> Banela Corporation<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation:</b> British Virgin Islands<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+                "text": "<b>Name:</b> Banela Corporation<br><b>Company Type:</b> Corporation<br><b>Place of Incorporation/Organisation:</b> British Virgin Islands<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
             "linarite_holdings": {
                 "name": "Linarite Holdings LLC",
@@ -2007,7 +2006,7 @@
                 "owner_of": ["purdue_pharma_inc", "plp_associates_inc"],
                 "owned_by": ["data_llc"],
                 "labels": ["t35","t38"],
-                "text": "<b>Name:</b> Linarite Holdings LLC<br><b>Company Type:</b> Limited Liability Company<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+                "text": "<b>Name:</b> Linarite Holdings LLC<br><b>Company Type:</b> Limited Liability Company<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
             "perthlite_holdings": {
                 "name": "Perthlite Holdings LLC",
@@ -2022,12 +2021,12 @@
                 "owner_of": ["purdue_pharma_inc", "plp_associates_inc"],
                 "owned_by": ["cornice_fiduciary"],
                 "labels": ["t36","t39"],
-                "text": "<b>Name:</b> Perthlite Holdings LLC<br><b>Company Type:</b> Limited Liability Company<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+                "text": "<b>Name:</b> Perthlite Holdings LLC<br><b>Company Type:</b> Limited Liability Company<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
             "millborne": {
                 "name": "Millborne Trust Company Limited",
-                "type": "Limited Company",
-                "poi": "Jersey (Channel Islands)",
+                "type": "Limited Company (UK)",
+                "poi": "Jersey (Channel Islands, UK)",
                 "address": "Unknown",
                 "business": "Unknown",
                 "status": "Non-debtor",
@@ -2037,7 +2036,7 @@
                 "owner_of": ["banela"],
                 "owned_by": ["hercules_trust"],
                 "labels": ["t34"],
-                "text": "<b>Name:</b> Millborne Trust Company Limited<br><b>Company Type:</b> Limited Company<br><b>Place of Incorporation:</b> Jersey (Channel Islands)<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+                "text": "<b>Name:</b> Millborne Trust Company Limited<br><b>Company Type:</b> Limited Company (UK)<br><b>Place of Incorporation/Organisation:</b> Jersey (Channel Islands, UK)<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
             "data_llc": {
                 "name": "Data LLC",
@@ -2052,7 +2051,7 @@
                 "owner_of": ["rosebay_medical_inc", "linarite_holdings"],
                 "owned_by": ["data_trust", "rrs_trust_89_1b"],
                 "labels": ["t35","t40","t41"],
-                "text": "<b>Name:</b> Data LLC<br><b>Company Type:</b> Limited Liability Company<br><b>Place of Incorporation:</b> Wyoming; New York<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+                "text": "<b>Name:</b> Data LLC<br><b>Company Type:</b> Limited Liability Company<br><b>Place of Incorporation/Organisation:</b> Wyoming; New York<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
             "cornice_fiduciary": {
                 "name": "Cornice Fiduciary Management LLC",
@@ -2067,7 +2066,7 @@
                 "owner_of": ["rosebay_medical_inc", "perthlite_holdings"],
                 "owned_by": ["cornice_trust", "rrs_trust_89_2b"],
                 "labels": ["t36","t42","t43"],
-                "text": "<b>Name:</b> Cornice Fiduciary Management LLC<br><b>Company Type:</b> Limited Liability Company<br><b>Place of Incorporation:</b> Delaware<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
+                "text": "<b>Name:</b> Cornice Fiduciary Management LLC<br><b>Company Type:</b> Limited Liability Company<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
             "trust_1974": {
                 "name": "Trust under agreement 11/5/1974 for the benefit of Beverly Sackler",
@@ -2087,7 +2086,7 @@
             "beacon_trust": {
                 "name": "Beacon Trust",
                 "type": "Trust",
-                "poi": "Jersey (Channel Islands)",
+                "poi": "Jersey (Channel Islands, UK)",
                 "address": "Unknown",
                 "business": "Unknown",
                 "status": "Non-debtor",
@@ -2097,12 +2096,12 @@
                 "owner_of": ["heatheridge"],
                 "owned_by": [],
                 "labels": [],
-                "text": "<b>Name:</b> Beacon Trust<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Jersey (Channel Islands)<br><b>Trustees:</b> Heatheridge Trust Company Limited<br><b>Status:</b> Non-debtor"
+                "text": "<b>Name:</b> Beacon Trust<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Jersey (Channel Islands, UK)<br><b>Trustees:</b> Heatheridge Trust Company Limited<br><b>Status:</b> Non-debtor"
             },
             "hercules_trust": {
                 "name": "Hercules Trust",
                 "type": "Trust",
-                "poi": "Jersey (Channel Islands)",
+                "poi": "Jersey (Channel Islands, UK)",
                 "address": "Unknown",
                 "business": "Unknown",
                 "status": "Non-debtor",
@@ -2112,7 +2111,7 @@
                 "owner_of": ["millborne"],
                 "owned_by": [],
                 "labels": [],
-                "text": "<b>Name:</b> Hercules Trust<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Jersey (Channel Islands)<br><b>Trustees:</b> Millborne Trust Company Limited<br><b>Status:</b> Non-debtor"
+                "text": "<b>Name:</b> Hercules Trust<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Jersey (Channel Islands, UK)<br><b>Trustees:</b> Millborne Trust Company Limited<br><b>Status:</b> Non-debtor"
             },
             "rrs_trust_89_1b": {
                 "name": "Raymond R Sackler Trust 1B dtd 12/23/1989",
@@ -2205,88 +2204,91 @@
                 "text": "<b>Name:</b> Cornice Trust<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Wyoming<br><b>Trustees:</b> Leslie Schreyer and Jeffrey Robins, Norton Rose Fullbright<br><b>Status:</b> Non-debtor"
             },
             "bank_status": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>Bankruptcy status:</b> this refers to an entity's role in Purdue Pharma's ongoing Chapter 11 bankruptcy case. Under Chapter 11 of US Bankruptcy Code, businesses can voluntarily petition for reorganisation in which their business, assets, and debts are restructured, but generally does not require the companies to cease operations or liquidate assets."
             },
             "debtor": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>Debtor:</b> entities that are included in the Purdue Pharma bankruptcy case and filed voluntary petitions for relief in the US Bankruptcy Court for the Southern District of New York in September 2019. Debtors are subject to restructuring once a reorganisation plan is reached between Purdue Pharma and the US government. While negotiations are still underway after the US Supreme Court ruled against the constitutionality of the original settlement in June 2024, the final reorganisation plan will almost certainly remove debtors from Sackler family ownership."
             },
             "non_debtor": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>Non-debtor:</b> entities that did not file voluntary petitions of relief and are directly included in Purdue Pharma's bankruptcy case. These entities will most likely not be subject to reorganisation and instead will remain under the ownership of the Sackler family."
 
             },
             "company_type": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>Company type:</b> refers to an entity's form of business organisation under the legal framework where the entity is incorporated or registered. Different types of companies are subject to different legal obligations and government oversight, especially with respect to taxation, reporting requirements, and legal liability."
             },
             "limited_partner": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>Limited Partnership:</b> allows investors who are limited partners (including family members) to insulate themselves from the full legal risks and operational decisions of a legal entity.  A general partner absorbs full liability to insulate the limited partners&mdash;but the general partner is often an LLC or corporation set up to serve in this role, shielding any individuals behind the partnership from personal liability."
 
             },
             "general_partner": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>General Partnership:</b> a business which is not incorporated; that is, the business and its owner are not legally separate entities. This makes the owner(s) of the business responsible for the business's financial obligations, and any business losses and profits are reported as personal income. No corporate taxes are paid and there are minimal reporting and recordkeeping requirements compared to those of incorporated businesses."
 
             },
             "corporation": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>Corporation:</b> an entity that is legally distinct from its owners or shareholders, limiting their personal liability to lawsuits. Corporations separate personal and corporate finances and also provide centralised control and governance structures through boards and executives."
 
             },
             "llc": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>Limited Liability Company:</b> combines elements of corporations and partnerships. The owners, called members, of an LLC are shielded from personal liability, while these companies are often used to hold real estate, shares in other companies, or intellectual property, to protect these assets, and to transfer them intergenerationally."
 
             },
             "limited_company": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>Limited Company (UK):</b> the UK's equivalent of an LLC or corporation, structured either as public or private. In Purdue's structure, all Limited Companies are associated with Mortimer Sackler, who renounced his US citizenship in 1974 and lived in London. This is as far as our knowledge extends as to the reasons that Purdue may have used Limited Companies in the UK. However, American companies can register and operate a Limited Company in the UK via an intermediary with a UK office address. This allows the company to operate under UK corporate law and to access UK tax treaties, legal protections, and regulatory governance. Using a Limited Company from the US is often a strategy used to build opaque financial structures, common in offshore arrangements using trusts and/or holding companies. US tax obligations apply to US owners and entities."
 
             },
             "trust": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>Trust:</b> a financial structure in which a trustee owns and manages assets on behalf of beneficiaries. Trustees must act in the best interest of beneficiaries, who can be companies or family members. This structure insulates wealth from direct ownership and taxation. Larger financial structures often include trusts to obscure ownership and shield assets from regulatory scrutiny."
 
             },
             "place_incorporation": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>Place of incorporation/organisation:</b> the place where an entity is legally established and subject to the jurisdiction of. These are often chosen strategically in complex financial structures based on different locations' tax and fiduciary laws and privacy protections."
 
             },
             "delaware": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>Delaware:</b> the most common jurisdiction within the US for companies to register in due to a favourable legal and regulatory landscape. For example, the Delaware Statutory Trust Act allows creation of trusts that protect assets from creditors, and Delaware does not tax trust income earned by non-residents of the state, nor require public disclosure of beneficiaries and trust terms."
 
             },
             "new_york": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>New York:</b> as home to New York City, a major global financial hub, incorporating in New York can provide companies with proximity to various legal and financial services in a well-established corporate legal environment."
 
             },
             "bvi": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>British Virgin Islands:</b> a British overseas territory in the Caribbean with a robust financial services sector, which accounts for the majority of the territory's national income. The British Virgin Islands are a prominent offshore financial centre for companies due especially to favourable tax laws and opportunities for anonymity in company formation and ownership. "
 
             },
             "jersey": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>Jersey (Channel Islands, UK):</b> a British Crown Dependency located roughly 22 kilometres off the northern coast of France. Financial services constitute a large share of Jersey's economy, and it is a prominent offshore financial centre. Jersey has no corporate income tax for most companies and does not require capital gains or inheritance tax. "
 
             },
             "wyoming": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>Wyoming:</b> an increasingly common jurisdiction within the US for both domestic and international companies to organise in due especially to changes in the state's trust laws since 2011. Wyoming has asset protection and privacy laws, as well as no state income tax, which makes it a desirable location for incorporating LLCs and corporations. Wyoming is often used for the formation of anonymous holding companies."
 
             },
+            "wyoming_ny": {
+                "text": "<b>Wyoming; New York:</b> several trusts and one LLC in the Purdue ownership hierarchy are subject to the governing law of Wyoming, as to administration, and New York, as to validity and construction. In this case, New York would generally be considered the place of organisation as the entity's legal existence is governed by New York law, but Wyoming is the place of administration and jurisdiction for taxation purposes, asset protection, and certain legal disputes. This legal strategy of siting an entity in Wyoming and New York allows businesses to access the different corporate advantages of both locations, with New York's well-established trust law and access to legal services and Wyoming's favourable privacy laws, intergenerational transfer of trusts, and tax benefits."
+            },
             "corporate_address": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>Corporate address:</b> shows the geography of principle operating locations and/or registration of these financial entities. Many are unknown due to the lack of reporting requirements required for various financial structures. For example, none of the trusts report their addresses."
 
             },
             "one_stamford": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>One Stamford Forum, Stamford, CT, USA:</b> the address of Purdue Pharma's business headquarters since 2000. Members of the Sackler family have also used One Stamford Forum as the corporate address for some of their personal businesses outside of the Purdue Pharma organisational structure. Despite taking down the signs bearing the company's name in 2019, Purdue renewed its lease for the building in 2023 through 2026."
 
             },
             "coventry": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>498 Washington St, Coventry, RI, USA:</b> the address of the factory of Purdue's subsidiary companies, Rhodes Pharmaceuticals and Rhodes Technologies, which manufactured generic-brand opioids. The factory was acquired in 2022 by Pharmaron, a pharmaceutical company based in Beijing."
 
             },
             "north_bay": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>North Bay Associates, Oklahoma City, OK, USA:</b> North Bay Associates is an Oklahoma-based, accounting firm that Jonathan Sackler served as a managing partner of as recently as 2015."
 
             },
-            "zurich": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+            "corp_serv": {
+                "text": "<b>Corporation Service Company, Wilmington, DE, USA:</b> Corporation Service Company is a company headquartered in Delaware that offers registered agent and other corporate services, including for businesses operating internationally."
 
             },
             "unknown": {
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet tristique sem, eu tempor justo pharetra ut. Vestibulum arcu felis, finibus non felis eu, fringilla bibendum felis. Aenean at elit."
+                "text": "<b>Unknown:</b> due to limited reporting requirements for certain jurisdictions and company types, we lack information about the corporate address for some entities."
 
             }
         }`

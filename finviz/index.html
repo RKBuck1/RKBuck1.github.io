@@ -35,6 +35,7 @@
         font-family: Arial, Helvetica, sans-serif;
         fill: black;
         max-width: 40%;
+        min-width: 200px;
         z-index: 2;
     }
 
@@ -181,6 +182,11 @@
     .legend-item svg {
         margin-right: 5px;
         min-width: max-content;
+    }
+
+    #ent-relationships {
+        margin-bottom: 0rem;
+        display: block;
     }
 
     .color-by-company-type .company-type--lp {
@@ -431,6 +437,35 @@
                 <input type="checkbox" id="tooltipOff" />
                 Hide Tooltip
             </label>
+            <div id="ent-relationships" class="legend">
+                <p class="subtitle"> Relationship Between Entities</p>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <defs>
+                            <marker id="triangle" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="strokeWidth" markerWidth="8"
+                                markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" />
+                            </marker>
+                        </defs>
+                        <line class="line" x1="0" y1="8" x2="32" y2="8" marker-end="url(#triangle)"/>
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">Ownership Interest</span>
+                </div>
+                <div class="legend-item">
+                    <svg width="32" height="16">
+                        <defs>
+                            <marker id="triangle" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="strokeWidth" markerWidth="8"
+                                markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" />
+                            </marker>
+                        </defs>
+                        <line class="line dashed" x1="0" y1="8" x2="32" y2="8" marker-end="url(#triangle)"/>
+                    </svg>
+                    <span class="text" style="margin-right: 5px;">&ndash;</span>
+                    <span class="text">Trustee</span>
+                </div>
+            </div>
             <div>
                 <label for="select-variable" class="subtitle">Colour by variable:</label>
                 <select name="select-variable" id="select-variable" onchange="changeColor()">
@@ -1083,10 +1118,10 @@
             </g>
             <g id="rrs_trust_89_1b" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
                 onmouseleave="hideTooltip(); hideConnections();">
-                <rect x="2330" y="270"
+                <rect x="2530" y="200"
                     class="rectangle dashed company-type--trust poi--wyny corporate-address--unknown status--nondebtor"
                     width="300" height="100" rx="10" ry="10"></rect>
-                <g transform="translate(2480,300)" dominant-baseline="middle" text-anchor="middle">
+                <g transform="translate(2680,230)" dominant-baseline="middle" text-anchor="middle">
                     <text class="text" x="0" y="0">
                         <tspan x="0" dy="0">RRS Trust 1B dtd 12/23/89</tspan>
                         <tspan x="0" dy="1.2em">David A Sackler, Marianna Sacker,</tspan>
@@ -1096,10 +1131,10 @@
             </g>
             <g id="rrs_trust_89_1a" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
                 onmouseleave="hideTooltip(); hideConnections();">
-                <rect x="2330" y="70"
+                <rect x="2130" y="200"
                     class="rectangle dashed company-type--trust poi--wyny corporate-address--unknown status--nondebtor"
                     width="300" height="100" rx="10" ry="10"></rect>
-                <g transform="translate(2480,100)" dominant-baseline="middle" text-anchor="middle">
+                <g transform="translate(2280,230)" dominant-baseline="middle" text-anchor="middle">
                     <text class="text" x="0" y="0">
                         <tspan x="0" dy="0">RRS Trust 1A dtd 12/23/89</tspan>
                         <tspan x="0" dy="1.2em">David A Sackler, Marianna Sacker,</tspan>
@@ -1109,10 +1144,10 @@
             </g>
             <g id="rrs_trust_89_2b" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
                 onmouseleave="hideTooltip(); hideConnections();">
-                <rect x="2950" y="400"
+                <rect x="2950" y="550"
                     class="rectangle dashed company-type--trust poi--wyny corporate-address--unknown status--nondebtor"
                     width="300" height="100" rx="10" ry="10"></rect>
-                <g transform="translate(3100,430)" dominant-baseline="middle" text-anchor="middle">
+                <g transform="translate(3100,580)" dominant-baseline="middle" text-anchor="middle">
                     <text class="text" x="0" y="0">
                         <tspan x="0" dy="0">RRS Trust 2B dtd 12/23/89</tspan>
                         <tspan x="0" dy="1.2em">Madeleine Sackler, Clare Sacker,</tspan>
@@ -1122,10 +1157,10 @@
             </g>
             <g id="rrs_trust_89_2a" class="container" onmousemove="showTooltip(evt); showConnections(evt);"
                 onmouseleave="hideTooltip(); hideConnections();">
-                <rect x="2950" y="200"
+                <rect x="2950" y="750"
                     class="rectangle dashed company-type--trust poi--wyny corporate-address--unknown status--nondebtor"
                     width="300" height="100" rx="10" ry="10"></rect>
-                <g transform="translate(3100,230)" dominant-baseline="middle" text-anchor="middle">
+                <g transform="translate(3100,780)" dominant-baseline="middle" text-anchor="middle">
                     <text class="text" x="0" y="0">
                         <tspan x="0" dy="0">RRS Trust 2A dtd 12/23/89</tspan>
                         <tspan x="0" dy="1.2em">Madeleine Sackler, Clare Sacker,</tspan>
@@ -1264,16 +1299,21 @@
             <line id="l126" class="line" x1="2150" y1="1050" x2="2300" y2="1050" />
             <line id="l127" class="line" x1="2300" y1="1050" x2="2350" y2="1050" />
             <line id="l128" class="line" x1="2350" y1="1050" x2="2600" y2="1050" />
-            <line id="l129" class="line dashed" x1="3100" y1="700" x2="2700" y2="700"/>
-            <line id="l130" class="line dashed" x1="3100" y1="500" x2="3100" y2="700" marker-start="url(#triangle)" />
-            <line id="l131" class="line dashed" x1="3100" y1="300" x2="3100" y2="400" />
+            <line id="l129" class="line dashed" x1="2900" y1="700" x2="2700" y2="700"/>
+            <line id="l130" class="line dashed" x1="2900" y1="600" x2="2900" y2="700"/>
+            <line id="l130b" class="line dashed" x1="2900" y1="600" x2="2950" y2="600" marker-end="url(#triangle)"/>
+            <line id="l131" class="line dashed" x1="2900" y1="700" x2="2900" y2="800" />
+            <line id="l131b" class="line dashed" x1="2900" y1="800" x2="2950" y2="800" marker-end="url(#triangle)"/>
             <line id="l132" class="line" x1="2750" y1="550" x2="2750" y2="600" />
             <line id="l133" class="line" x1="2750" y1="600" x2="2650" y2="600" />
             <line id="l134" class="line" x1="2650" y1="600" x2="2650" y2="650" marker-end="url(#triangle)" />
             <line id="l135" class="line" x1="2600" y1="650" x2="2600" y2="600" />
             <line id="l136" class="line" x1="2600" y1="600" x2="2480" y2="600" />
-            <line id="l137" class="line dashed" x1="2480" y1="170" x2="2480" y2="270" />
-            <line id="l138" class="line dashed" x1="2480" y1="600" x2="2480" y2="370" marker-end="url(#triangle)"/>
+            <line id="l137" class="line dashed" x1="2280" y1="300" x2="2280" y2="350" marker-start="url(#triangle)"/>
+            <line id="l137b" class="line dashed" x1="2280" y1="350" x2="2480" y2="350" />
+            <line id="l137c" class="line dashed" x1="2680" y1="300" x2="2680" y2="350" marker-start="url(#triangle)"/>
+            <line id="l137d" class="line dashed" x1="2680" y1="350" x2="2480" y2="350" />
+            <line id="l138" class="line dashed" x1="2480" y1="600" x2="2480" y2="350"/>
             <line id="l139" class="line dashed" x1="2480" y1="600" x2="2480" y2="700" />
             <line id="l140" class="line dashed" x1="2480" y1="700" x2="2400" y2="700"/>
             <line id="l141" class="line" x1="2450" y1="600" x2="2480" y2="600" />
@@ -2047,9 +2087,9 @@
                 "status": "Non-debtor",
                 "assests": "Unknown",
                 "liabilities": "Unknown",
-                "lines": ["l118","l138","l139","l140","l142","l143","l144","l145","l146","l147","l148","l152","l153","l154"],
+                "lines": ["l118","l137", "l137b", "l137c", "l137d", "l138","l139","l140","l142","l143","l144","l145","l146","l147","l148","l152","l153","l154"],
                 "owner_of": ["rosebay_medical_inc", "linarite_holdings"],
-                "owned_by": ["data_trust", "rrs_trust_89_1b"],
+                "owned_by": ["data_trust", "rrs_trust_89_1b", "rrs_trust_89_1a"],
                 "labels": ["t35","t40","t41"],
                 "text": "<b>Name:</b> Data LLC<br><b>Company Type:</b> Limited Liability Company<br><b>Place of Incorporation/Organisation:</b> Wyoming; New York<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
@@ -2062,9 +2102,9 @@
                 "status": "Non-debtor",
                 "assests": "Unknown",
                 "liabilities": "Unknown",
-                "lines": ["l119","l129","l130","l132","l133","l134","l135","l136","l141","l144","l145","l152","l153","l154"],
+                "lines": ["l119","l129","l130", "l130b", "l131","l131b","l132","l133","l134","l135","l136","l141","l144","l145","l152","l153","l154"],
                 "owner_of": ["rosebay_medical_inc", "perthlite_holdings"],
-                "owned_by": ["cornice_trust", "rrs_trust_89_2b"],
+                "owned_by": ["cornice_trust", "rrs_trust_89_2b", "rrs_trust_89_2a"],
                 "labels": ["t36","t42","t43"],
                 "text": "<b>Name:</b> Cornice Fiduciary Management LLC<br><b>Company Type:</b> Limited Liability Company<br><b>Place of Incorporation/Organisation:</b> Delaware<br><b>Corporate Address:</b> Unknown<br><b>Nature of Business:</b> Unknown<br><b>Status:</b> Non-debtor<br><b>Assets:</b> Unknown<br><b>Liabilities:</b> Unknown"
             },
@@ -2122,9 +2162,9 @@
                 "status": "Non-debtor",
                 "assests": "Unknown",
                 "liabilities": "Unknown",
-                "lines": ["l137","l138","l139","l140"],
+                "lines": ["l137c", "l137d", "l138","l139","l140"],
                 "owner_of": ["data_llc"],
-                "owned_by": ["rrs_trust_89_1a"],
+                "owned_by": [],
                 "labels": [],
                 "text": "<b>Name:</b> Raymond R Sackler Trust 1B dtd 12/23/1989<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Wyoming (administration); New York (validity and construction)<br><b>Trustees:</b> Data LLC<br><b>Status:</b> Non-debtor"
             },
@@ -2137,9 +2177,9 @@
                 "status": "Non-debtor",
                 "assests": "Unknown",
                 "liabilities": "Unknown",
-                "lines": ["l129","l130","l131"],
+                "lines": ["l129","l130","l130b"],
                 "owner_of": ["cornice_fiduciary"],
-                "owned_by": ["rrs_trust_89_2a"],
+                "owned_by": [],
                 "labels": [],
                 "text": "<b>Name:</b> Raymond R Sackler Trust 2B dtd 12/23/1989<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Wyoming (administration); New York (validity and construction)<br><b>Trustees:</b> Cornice Fiduciary Management LLC<br><b>Status:</b> Non-debtor"
             },
@@ -2152,8 +2192,8 @@
                 "status": "Non-debtor",
                 "assests": "Unknown",
                 "liabilities": "Unknown",
-                "lines": ["l137"],
-                "owner_of": ["rrs_trust_89_1b"],
+                "lines": ["l137", "l137b", "l138", "l139", "l140"],
+                "owner_of": ["data_llc"],
                 "owned_by": [],
                 "labels": [],
                 "text": "<b>Name:</b> Raymond R Sackler Trust 1A dtd 12/23/1989<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Wyoming (administration); New York (validity and construction)<br><b>Trustees:</b> Data LLC<br><b>Status:</b> Non-debtor"
@@ -2167,8 +2207,8 @@
                 "status": "Non-debtor",
                 "assests": "Unknown",
                 "liabilities": "Unknown",
-                "lines": ["l131"],
-                "owner_of": ["rrs_trust_89_2b"],
+                "lines": ["l129", "l131", "l131b"],
+                "owner_of": ["cornice_fiduciary"],
                 "owned_by": [],
                 "labels": [],
                 "text": "<b>Name:</b> Raymond R Sackler Trust 2A dtd 12/23/1989<br><b>Company Type:</b> Trust<br><b>Governing Law:</b> Wyoming (administration); New York (validity and construction)<br><b>Trustees:</b> Cornice Fiduciary Management LLC<br><b>Status:</b> Non-debtor"
@@ -2415,8 +2455,23 @@
                 let tooltip = document.getElementById("tooltip");
                 tooltip.innerHTML = entityObj[elementID].text;
                 tooltip.style.display = "block";
-                tooltip.style.left = evt.pageX + 10 + 'px';
-                tooltip.style.top = evt.pageY + 10 + 'px';
+
+                let x = evt.pageX;
+                let y = evt.pageY;
+
+                const rect = tooltip.getBoundingClientRect();
+                const expectedBottom = y + rect.height;
+                if (expectedBottom > window.innerHeight) {
+                    y -= rect.height;
+                }
+                const expectedRightEdge = x + rect.width;
+                if (expectedRightEdge > window.innerWidth) {
+                    x -= rect.width;
+                }
+
+                tooltip.style.left = x + 10 + 'px';
+                tooltip.style.top = y + 10 + 'px';
+
             };
         }
 

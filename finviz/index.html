@@ -89,7 +89,7 @@
         stroke-width: 5;
     }
 
-    .no-var .container:hover .rectangle{
+    .no-var .container:hover .rectangle {
         fill: #ec008c;
     }
 
@@ -392,6 +392,23 @@
     .btGrid:hover {
         background: #dfdfdf;
     }
+
+    .authors {
+        margin: 0;
+    }
+
+    a {
+        font-size: 12pt;
+        color: #575796;
+    }
+
+    a:link {
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
 </style>
 
 <body>
@@ -401,6 +418,8 @@
                 <p class="title">Financial Structures & Family Ties:</p>
                 <p class="subtitle">Disentangling Purdue Pharma's Corporate Ownership Structure and the Sackler
                     Family Wealth</p>
+                <p class="authors"><a href="https://sites.psu.edu/schlab/" target="_blank">The Scales of Corporate Harm
+                        Lab</a></p>
             </div>
             <button id="helpBt" class="bt" onclick="openHelp();">More Information</button>
             <div class="button-collection">
@@ -442,12 +461,12 @@
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <defs>
-                            <marker id="triangle" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="strokeWidth" markerWidth="8"
-                                markerHeight="6" orient="auto-start-reverse">
+                            <marker id="triangle" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="strokeWidth"
+                                markerWidth="8" markerHeight="6" orient="auto-start-reverse">
                                 <path d="M 0 0 L 10 5 L 0 10 z" />
                             </marker>
                         </defs>
-                        <line class="line" x1="0" y1="8" x2="32" y2="8" marker-end="url(#triangle)"/>
+                        <line class="line" x1="0" y1="8" x2="32" y2="8" marker-end="url(#triangle)" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
                     <span class="text">Ownership Interest</span>
@@ -455,12 +474,12 @@
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <defs>
-                            <marker id="triangle" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="strokeWidth" markerWidth="8"
-                                markerHeight="6" orient="auto-start-reverse">
+                            <marker id="triangle" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="strokeWidth"
+                                markerWidth="8" markerHeight="6" orient="auto-start-reverse">
                                 <path d="M 0 0 L 10 5 L 0 10 z" />
                             </marker>
                         </defs>
-                        <line class="line dashed" x1="0" y1="8" x2="32" y2="8" marker-end="url(#triangle)"/>
+                        <line class="line dashed" x1="0" y1="8" x2="32" y2="8" marker-end="url(#triangle)" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
                     <span class="text">Trustee</span>
@@ -477,151 +496,174 @@
                 </select>
             </div>
             <div id="company-type-legend" class="legend">
-                <p id="company_type" class="subtitle container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Company Type</p>
+                <p id="company_type" class="subtitle container" onmousemove="showTooltip(event);"
+                    onmouseleave="hideTooltip();">Company Type</p>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#E69F00" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="corporation" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Corporation</span>
+                    <span id="corporation" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">Corporation</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#56B4E9" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;;">&ndash;</span>
-                    <span id="general_partner" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">General Partnership</span>
+                    <span id="general_partner" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">General Partnership</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#009E73" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="limited_partner" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Limited Partnership</span>
+                    <span id="limited_partner" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">Limited Partnership</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#F0E442" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="limited_company" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Limited Company (UK)</span>
+                    <span id="limited_company" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">Limited Company (UK)</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#0072B2" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="llc" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Limited Liability Company</span>
+                    <span id="llc" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">Limited Liability Company</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#D55E00" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="trust" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Trust</span>
+                    <span id="trust" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">Trust</span>
                 </div>
             </div>
 
             <div id="poi-legend" class="legend">
-                <p id="place_incorporation" class="subtitle container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Place of Incorporation/Organisation</p>
+                <p id="place_incorporation" class="subtitle container" onmousemove="showTooltip(event);"
+                    onmouseleave="hideTooltip();">Place of Incorporation/Organisation</p>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#bebada" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="delaware" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Delaware</span>
+                    <span id="delaware" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">Delaware</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#ffffb3" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="new_york" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">New York</span>
+                    <span id="new_york" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">New York</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#80b1d3" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="wyoming" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Wyoming</span>
+                    <span id="wyoming" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">Wyoming</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#8dd3c7" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="wyoming_ny" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Wyoming; New York</span>
+                    <span id="wyoming_ny" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">Wyoming; New York</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#fb8072" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="bvi" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">British Virgin Islands</span>
+                    <span id="bvi" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">British Virgin Islands</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#fdb462" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="jersey" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Jersey (Channel Islands, UK)</span>
+                    <span id="jersey" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">Jersey (Channel Islands, UK)</span>
                 </div>
             </div>
 
             <div id="corporate-address-legend" class="legend">
-                <p id="corporate_address" class="subtitle container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Corporate Address</p>
+                <p id="corporate_address" class="subtitle container" onmousemove="showTooltip(event);"
+                    onmouseleave="hideTooltip();">Corporate Address</p>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#7fc97f" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="one_stamford" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">One Stamford Forum, Stamford, CT, USA</span>
+                    <span id="one_stamford" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">One Stamford Forum, Stamford, CT, USA</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#beaed4" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="coventry" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">498 Washington St, Coventry, RI, USA</span>
+                    <span id="coventry" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">498 Washington St, Coventry, RI, USA</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#fdc086" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="north_bay" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">North Bay Associates, Oklahoma City, OK, USA</span>
+                    <span id="north_bay" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">North Bay Associates, Oklahoma City, OK, USA</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#ffff99" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="corp_serv" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Corporation Service Company, Wilmington, DE, USA</span>
+                    <span id="corp_serv" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">Corporation Service Company, Wilmington, DE, USA</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#b3b3b3" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="unknown" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Unknown</span>
+                    <span id="unknown" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">Unknown</span>
                 </div>
             </div>
 
             <div id="status-legend" class="legend">
-                <p id="bank_status" class="subtitle container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Bankruptcy Status</p>
+                <p id="bank_status" class="subtitle container" onmousemove="showTooltip(event);"
+                    onmouseleave="hideTooltip();">Bankruptcy Status</p>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#66c2a5" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="debtor" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Debtor</span>
+                    <span id="debtor" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">Debtor</span>
                 </div>
                 <div class="legend-item">
                     <svg width="32" height="16">
                         <rect width="32" height="16" fill="#fc8d62" stroke="black" />
                     </svg>
                     <span class="text" style="margin-right: 5px;">&ndash;</span>
-                    <span id="non_debtor" class="text container" onmousemove="showTooltip(event);" onmouseleave="hideTooltip();">Non-debtor</span>
+                    <span id="non_debtor" class="text container" onmousemove="showTooltip(event);"
+                        onmouseleave="hideTooltip();">Non-debtor</span>
                 </div>
             </div>
             <div id="help" class="modal">
@@ -644,15 +686,25 @@
                         and extent using the refresh button next to the zoom buttons in the sidebar. Hover over entities
                         with a mouse to see their immediate parent or subsidiary companies in bold. The tooltip (which
                         can be turned off by toggling the radio button in the sidebar) shows information such as the
-                        company type, the place of incorporation/organisation, corporate address, nature of business, status in the
-                        Purdue bankruptcy filing, governing law, trustees, as well as assets and liabilities. Colour the
-                        entities by selecting among company type, place of incorporation/organisation, corporate address, and
-                        bankruptcy status in the dropdown menu.
+                        company type, the place of incorporation/organisation, corporate address, nature of business,
+                        status in the Purdue bankruptcy filing, governing law, trustees, as well as assets and
+                        liabilities. Colour the entities by selecting among company type, place of
+                        incorporation/organisation, corporate
+                        address, and bankruptcy status in the dropdown menu. For the best experience, we recommend
+                        exploring this visualisation on a laptop or
+                        desktop computer rather than on a mobile device.
                     </p>
                     <p class="" text>
-                        For the best experience, we recommend exploring this visualisation on a laptop or desktop
-                        computer rather than on a mobile device. For more information, please read <a href="https://rkbuck1.github.io/finviz/">the accompanying text</a>.
-                    </p>
+                        This visualisation was created by <a href="https://sites.psu.edu/schlab/members/"
+                            target="_blank">Ruth K. Buck, Emily Rosenman, and Louisa M. Holmes</a> of the
+                        Scales of Corporate Harms Lab (SCHLab) in the Department of Geography at Penn State. We have
+                        also created a <a
+                            href="https://docs.google.com/presentation/d/18PwvQ9CiKiofDXu_DAuX0-vqB1lrpbwk27eg4Om_m40/edit?usp=sharing"
+                            target="_blank">user guide</a> with more detailed information about how to interact and
+                        interpret the
+                        visualisation. For more information about Purdue Pharma and the role of corporate spatial
+                        strategies in perpetuating and profiting from the US opioid epidemic, please read the
+                        accompanying text [placeholder for link to journal text].
                 </div>
             </div>
         </div>
@@ -1299,23 +1351,23 @@
             <line id="l126" class="line" x1="2150" y1="1050" x2="2300" y2="1050" />
             <line id="l127" class="line" x1="2300" y1="1050" x2="2350" y2="1050" />
             <line id="l128" class="line" x1="2350" y1="1050" x2="2600" y2="1050" />
-            <line id="l129" class="line dashed" x1="2900" y1="700" x2="2700" y2="700"/>
-            <line id="l130" class="line dashed" x1="2900" y1="600" x2="2900" y2="700"/>
-            <line id="l130b" class="line dashed" x1="2900" y1="600" x2="2950" y2="600" marker-end="url(#triangle)"/>
+            <line id="l129" class="line dashed" x1="2900" y1="700" x2="2700" y2="700" />
+            <line id="l130" class="line dashed" x1="2900" y1="600" x2="2900" y2="700" />
+            <line id="l130b" class="line dashed" x1="2900" y1="600" x2="2950" y2="600" marker-end="url(#triangle)" />
             <line id="l131" class="line dashed" x1="2900" y1="700" x2="2900" y2="800" />
-            <line id="l131b" class="line dashed" x1="2900" y1="800" x2="2950" y2="800" marker-end="url(#triangle)"/>
+            <line id="l131b" class="line dashed" x1="2900" y1="800" x2="2950" y2="800" marker-end="url(#triangle)" />
             <line id="l132" class="line" x1="2750" y1="550" x2="2750" y2="600" />
             <line id="l133" class="line" x1="2750" y1="600" x2="2650" y2="600" />
             <line id="l134" class="line" x1="2650" y1="600" x2="2650" y2="650" marker-end="url(#triangle)" />
             <line id="l135" class="line" x1="2600" y1="650" x2="2600" y2="600" />
             <line id="l136" class="line" x1="2600" y1="600" x2="2480" y2="600" />
-            <line id="l137" class="line dashed" x1="2280" y1="300" x2="2280" y2="350" marker-start="url(#triangle)"/>
+            <line id="l137" class="line dashed" x1="2280" y1="300" x2="2280" y2="350" marker-start="url(#triangle)" />
             <line id="l137b" class="line dashed" x1="2280" y1="350" x2="2480" y2="350" />
-            <line id="l137c" class="line dashed" x1="2680" y1="300" x2="2680" y2="350" marker-start="url(#triangle)"/>
+            <line id="l137c" class="line dashed" x1="2680" y1="300" x2="2680" y2="350" marker-start="url(#triangle)" />
             <line id="l137d" class="line dashed" x1="2680" y1="350" x2="2480" y2="350" />
-            <line id="l138" class="line dashed" x1="2480" y1="600" x2="2480" y2="350"/>
+            <line id="l138" class="line dashed" x1="2480" y1="600" x2="2480" y2="350" />
             <line id="l139" class="line dashed" x1="2480" y1="600" x2="2480" y2="700" />
-            <line id="l140" class="line dashed" x1="2480" y1="700" x2="2400" y2="700"/>
+            <line id="l140" class="line dashed" x1="2480" y1="700" x2="2400" y2="700" />
             <line id="l141" class="line" x1="2450" y1="600" x2="2480" y2="600" />
             <line id="l142" class="line" x1="2450" y1="600" x2="2300" y2="600" />
             <line id="l143" class="line" x1="2300" y1="600" x2="2300" y2="650" />
@@ -1324,9 +1376,9 @@
             <line id="l146" class="line" x1="2150" y1="500" x2="2150" y2="550" />
             <line id="l147" class="line" x1="2150" y1="550" x2="2150" y2="700" />
             <line id="l148" class="line" x1="2150" y1="700" x2="2200" y2="700" marker-end="url(#triangle)" />
-            <line id="l149" class="line dashed" x1="1750" y1="550" x2="1750" y2="350" marker-end="url(#triangle)"/>
+            <line id="l149" class="line dashed" x1="1750" y1="550" x2="1750" y2="350" marker-end="url(#triangle)" />
             <line id="l150" class="line dashed" x1="1750" y1="550" x2="1750" y2="700" />
-            <line id="l151" class="line dashed" x1="1750" y1="700" x2="1900" y2="700"/>
+            <line id="l151" class="line dashed" x1="1750" y1="700" x2="1900" y2="700" />
             <line id="l152" class="line" x1="2150" y1="550" x2="1750" y2="550" />
             <line id="l153" class="line" x1="750" y1="550" x2="1750" y2="550" />
             <line id="l154" class="line" x1="750" y1="550" x2="750" y2="650" marker-end="url(#triangle)" />
